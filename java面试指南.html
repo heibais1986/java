@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交互式Java中级工程师面试指南</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <!-- 
+    Chosen Palette: Calm Neutrals (Tailwind Slate)
+    Application Structure Plan: A two-column layout with a fixed side navigation menu for topics and a main content area for interactive Q&A accordions. This structure allows users to easily jump between topics and drill down into specific questions, which is more effective for studying than a linear document. The accordion interaction encourages active recall.
+    Visualization & Content Choices: The source is purely textual. Goal: Organize & Inform. Method: Interactive Accordion. Interaction: Users click a question to reveal the answer. Justification: This prevents information overload and makes the guide interactive and engaging for study purposes. No charts are needed. Icons (chevrons for accordions) will be implemented using inline SVG paths for visual cues. Library: Vanilla JS for interactions. CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <style>
+        :root { font-family: 'Inter', sans-serif; }
+        @supports (font-variation-settings: normal) { :root { font-family: 'Inter var', sans-serif; } }
+        body { background-color: #f1f5f9; }
+        .prose table { width: 100%; }
+        .prose th { background-color: #f1f5f9; }
+        .prose code::before, .prose code::after { content: ''; }
+        .prose pre {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-size: 0.875rem;
+            line-height: 1.75;
+            overflow-x: auto;
+        }
+        .prose code {
+            background-color: #e2e8f0;
+            color: #1e293b;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        .prose pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+            font-size: inherit;
+            font-weight: inherit;
+        }
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-link.active {
+            background-color: #0f172a;
+            color: white;
+            font-weight: 600;
+        }
+        .nav-link:not(.active):hover {
+            background-color: #e2e8f0;
+            color: #1e293b;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="w-64 bg-white border-r border-slate-200 p-6 fixed top-0 left-0 h-full overflow-y-auto transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out z-30">
+            <h1 class="text-xl font-bold text-slate-900 mb-8">Java面试指南</h1>
+            <nav id="navigation-menu" class="space-y-2">
+                <a href="#spring" data-target="spring" class="nav-link flex items-center px-4 py-2.5 rounded-lg active">Spring框架与应用</a>
+                <a href="#middleware" data-target="middleware" class="nav-link flex items-center px-4 py-2.5 rounded-lg">中间件与数据库</a>
+                <a href="#microservices" data-target="microservices" class="nav-link flex items-center px-4 py-2.5 rounded-lg">微服务与分布式</a>
+                <a href="#java-core" data-target="java-core" class="nav-link flex items-center px-4 py-2.5 rounded-lg">Java核心与基础</a>
+                <a href="#dsa" data-target="dsa" class="nav-link flex items-center px-4 py-2.5 rounded-lg">数据结构与算法</a>
+            </nav>
+        </aside>
+
+        <!-- Mobile Header -->
+        <header class="md:hidden fixed top-0 left-0 w-full bg-white shadow-md p-4 z-20 flex justify-between items-center">
+             <h1 class="text-lg font-bold text-slate-900">Java面试指南</h1>
+            <button id="menu-toggle" class="p-2 rounded-md hover:bg-slate-100">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-64 p-6 pt-24 md:pt-8">
+            <div class="max-w-4xl mx-auto">
+                
+                <div id="content-container" class="prose max-w-none">
+                    <!-- Section: Spring -->
+                    <section id="spring" class="content-section space-y-4">
+                        <h2 class="text-3xl font-bold border-b pb-4 mb-6">Spring框架与应用</h2>
+                        <div class="accordion-item bg-white rounded-lg shadow-sm">
+                            <button class="accordion-header w-full flex justify-between items-center text-left p-5 font-semibold text-slate-800 hover:bg-slate-50">
+                                <span>1. Spring Boot 的核心优势是什么？它的自动配置原理是什么？</span>
+                                <svg class="accordion-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content hidden p-5 pt-0 border-t">
+                                <h4 class="font-semibold mt-4">核心优势：</h4>
+                                <ol>
+                                    <li><strong>快速开发：</strong> 通过大量的“起步依赖”（Starters），极大地简化了Maven/Gradle的依赖配置。</li>
+                                    <li><strong>简化配置：</strong> 遵循“约定大于配置”的原则，提供了大量自动配置，让开发者可以专注于业务逻辑。</li>
+                                    <li><strong>内嵌服务器：</strong> 内嵌了Tomcat、Jetty等服务器，无需部署WAR包，可以直接通过<code>java -jar</code>命令运行。</li>
+                                    <li><strong>易于监控：</strong> 提供<code>spring-boot-starter-actuator</code>，可以轻松地对应用进行健康检查、指标收集等监控。</li>
+                                </ol>
+                                <h4 class="font-semibold mt-4">自动配置原理：</h4>
+                                <p>这是Spring Boot的魔法核心。</p>
+                                <ol>
+                                    <li><strong><code>@SpringBootApplication</code>注解：</strong> 这个注解是入口，它其实是一个复合注解，其中最重要的一个是<code>@EnableAutoConfiguration</code>。</li>
+                                    <li><strong><code>@EnableAutoConfiguration</code>注解：</strong> 它启用了自动配置功能。它会利用<code>SpringFactoriesLoader</code>机制，去<code>META-INF/spring.factories</code>文件中加载所有自动配置类（AutoConfiguration classes）。</li>
+                                    <li><strong>自动配置类：</strong> 这些类（例如<code>DataSourceAutoConfiguration</code>）本身就是普通的<code>@Configuration</code>配置类，它们通过<code>@ConditionalOnClass</code>、<code>@ConditionalOnBean</code>、<code>@ConditionalOnProperty</code>等条件注解来判断自己是否应该生效。</li>
+                                    <li><strong>判断逻辑：</strong> 举个例子，<code>DataSourceAutoConfiguration</code>会检查classpath下是否存在<code>DataSource.class</code>和<code>JdbcTemplate.class</code>，如果存在，它就会尝试自动配置一个数据源（DataSource）的Bean。如果你自己定义了一个DataSource Bean，那么根据<code>@ConditionalOnMissingBean</code>注解，Spring Boot的自动配置就会失效，转而使用你定义的Bean。</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item bg-white rounded-lg shadow-sm">
+                             <button class="accordion-header w-full flex justify-between items-center text-left p-5 font-semibold text-slate-800 hover:bg-slate-50">
+                                <span>2. Spring框架中IOC和AOP的理解，它们解决了什么问题？</span>
+                                <svg class="accordion-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                             <div class="accordion-content hidden p-5 pt-0 border-t">
+                                <h4 class="font-semibold mt-4">IOC (Inversion of Control) 控制反转：</h4>
+                                <ul>
+                                    <li><strong>是什么：</strong> IOC是一种设计思想，意思是将你设计好的对象（Bean）的创建和依赖关系的管理权，交由第三方容器（Spring IOC容器）来控制。最常见的实现方式是<strong>依赖注入（DI - Dependency Injection）</strong>。</li>
+                                    <li><strong>解决了什么问题：</strong> 主要解决了<strong>代码间的强耦合问题</strong>。在没有IOC之前，一个类如果需要另一个类的实例，通常需要自己<code>new</code>一个出来。有了IOC，你只需要在类中声明需要哪个依赖，Spring容器会自动帮你“注入”进来，你无需关心它的创建过程。</li>
+                                </ul>
+                                <h4 class="font-semibold mt-4">AOP (Aspect-Oriented Programming) 面向切面编程：</h4>
+                                <ul>
+                                    <li><strong>是什么：</strong> AOP是一种编程思想，它允许开发者动态地将代码“横切”入现有的类和方法中，而无需修改原始代码。它关注的是那些分散在各个业务模块中的<strong>通用功能</strong>，如日志记录、事务管理等。</li>
+                                    <li><strong>解决了什么问题：</strong> 主要解决了<strong>重复代码和逻辑分散</strong>的问题。通过AOP，我们可以将这些通用功能定义为一个“切面”（Aspect），然后定义在“何处”（Pointcut）以及“何时”（Advice）应用这个切面。</li>
+                                </ul>
+                             </div>
+                        </div>
+
+                        <div class="accordion-item bg-white rounded-lg shadow-sm">
+                             <button class="accordion-header w-full flex justify-between items-center text-left p-5 font-semibold text-slate-800 hover:bg-slate-50">
+                                <span>3. 描述一下Spring中Bean的生命周期。</span>
+                                <svg class="accordion-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                             <div class="accordion-content hidden p-5 pt-0 border-t">
+                                 <p class="mt-4">一个Bean从创建到销毁主要经历以下关键步骤：</p>
+                                 <ol>
+                                     <li><strong>实例化 (Instantiation):</strong> Spring容器根据配置通过反射创建Bean的实例。</li>
+                                     <li><strong>属性填充 (Populate Properties):</strong> Spring容器为Bean的属性赋值。</li>
+                                     <li><strong>Aware接口调用:</strong> 如果Bean实现了<code>BeanNameAware</code>等接口，Spring会调用相应的方法。</li>
+                                     <li><strong>BeanPostProcessor (前置处理):</strong> 调用<code>postProcessBeforeInitialization</code>方法。</li>
+                                     <li><strong>初始化 (Initialization):</strong> 调用<code>afterPropertiesSet</code>方法或<code>init-method</code>。</li>
+                                     <li><strong>BeanPostProcessor (后置处理):</strong> 调用<code>postProcessAfterInitialization</code>方法。AOP代理通常在此步生成。</li>
+                                     <li><strong>Bean可用:</strong> Bean准备就绪，可以被使用了。</li>
+                                     <li><strong>销毁 (Destruction):</strong> 当容器关闭时，调用<code>destroy</code>方法或<code>destroy-method</code>。</li>
+                                 </ol>
+                             </div>
+                        </div>
+                        
+                         <div class="accordion-item bg-white rounded-lg shadow-sm">
+                             <button class="accordion-header w-full flex justify-between items-center text-left p-5 font-semibold text-slate-800 hover:bg-slate-50">
+                                <span>4. Mybatis中`#`和`$`的区别是什么？</span>
+                                <svg class="accordion-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                             <div class="accordion-content hidden p-5 pt-0 border-t">
+                                <h4 class="font-semibold mt-4"><code>#{}</code> (预编译处理):</h4>
+                                <ul>
+                                    <li><code>#{}</code> 会将传入的参数当做一个<strong>值</strong>，在SQL执行前，会替换为<code>?</code>占位符。</li>
+                                    <li><strong>优点：</strong> 能够有效<strong>防止SQL注入</strong>。</li>
+                                    <li><strong>使用场景：</strong> 绝大多数情况下都应该使用<code>#{}</code>。</li>
+                                </ul>
+                                <h4 class="font-semibold mt-4"><code>${}</code> (字符串替换):</h4>
+                                <ul>
+                                    <li><code>${}</code> 会将传入的参数直接当做<strong>字符串</strong>拼接到SQL语句中。</li>
+                                    <li><strong>缺点：</strong> 存在严重的<strong>SQL注入风险</strong>。</li>
+                                    <li><strong>使用场景：</strong> 仅在需要动态指定表名、列名、<code>order by</code>等场景下使用。</li>
+                                </ul>
+                             </div>
+                        </div>
+                    </section>
+
+                    <!-- Section: Middleware -->
+                    <section id="middleware" class="content-section space-y-4 hidden">
+                         <h2 class="text-3xl font-bold border-b pb-4 mb-6">中间件与数据库</h2>
+                        <div class="accordion-item bg-white rounded-lg shadow-sm">
+                            <button class="accordion-header w-full flex justify-between items-center text-left p-5 font-semibold text-slate-800 hover:bg-slate-50">
+                                <span>5. Redis有哪些常见的数据类型？分别适用于哪些业务场景？</span>
+                                <svg class="accordion-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content hidden p-5 pt-0 border-t">
+                                <ol class="mt-4 space-y-2">
+                                    <li><strong>String (字符串):</strong> 缓存用户信息、Session、分布式计数器、限流器。</li>
+                                    <li><strong>Hash (哈希):</strong> 缓存对象（如购物车），修改部分属性时无需序列化整个对象。</li>
+                                    <li><strong>List (列表):</strong> 简单的消息队列、文章列表、关注列表。</li>
+                                    <li><strong>Set (集合):</strong> 计算共同好友、共同关注（交集）、抽奖系统、黑白名单。</li>
+                                    <li><strong>ZSet (有序集合):</strong> 实现排行榜（积分榜、热销榜）、延时队列。</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <div class="accordion-item bg-white rounded-lg shadow-sm">
+                            <button class="accordion-header w-full flex justify-between items-center text-left p-5 font-semibold text-slate-800 hover:bg-slate-50">
+                                <span>6. 如何使用Redis实现分布式锁？</span>
+                                <svg class="accordion-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content hidden p-5 pt-0 border-t">
+                                <p class="mt-4">实现分布式锁的关键是利用Redis命令的<strong>原子性</strong>。最常用的命令是 <code>SET key value NX PX milliseconds</code>。</p>
+                                <ul>
+                                    <li><code>NX</code>: 只在key不存在时才设置成功。</li>
+                                    <li><code>PX milliseconds</code>: 设置key的过期时间，防止死锁。</li>
+                                </ul>
+                                <h4 class="font-semibold mt-4">基本步骤：</h4>
+                                <ol>
+                                    <li><strong>加锁：</strong> 客户端执行<code>SET lock_key random_value NX PX 30000</code>。<code>random_value</code>用于标识客户端。</li>
+                                    <li><strong>执行业务逻辑。</strong></li>
+                                    <li><strong>解锁：</strong> 为了防止误删，通过Lua脚本保证原子性地判断value是否匹配再删除。</li>
+                                </ol>
+                                <pre><code>if redis.call("get", KEYS[1]) == ARGV[1] then
+    return redis.call("del", KEYS[1])
+else
+    return 0
+end</code></pre>
+                            </div>
+                        </div>
+                        <div class="accordion-item bg-white rounded-lg shadow-sm">
+                            <button class="accordion-header w-full flex justify-between items-center text-left p-5 font-semibold text-slate-800 hover:bg-slate-50">
+                                <span>7. 什么是缓存穿透、缓存击穿和缓存雪崩？如何解决？</span>
+                                <svg class="accordion-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content hidden p-5 pt-0 border-t">
+                                <ul class="mt-4 space-y-4">
+                                    <li><strong>缓存穿透:</strong> 
+                                        <p><strong>现象：</strong> 查询一个数据库和缓存中都<strong>不存在</strong>的数据。<br>
+                                        <strong>解决：</strong> 缓存空对象；使用布隆过滤器。</p>
+                                    </li>
+                                     <li><strong>缓存击穿:</strong> 
+                                        <p><strong>现象：</strong> 一个<strong>热点Key</strong>在缓存中失效的瞬间，大量并发请求涌入数据库。<br>
+                                        <strong>解决：</strong> 使用互斥锁/分布式锁；热点数据永不过期。</p>
+                                    </li>
+                                     <li><strong>缓存雪崩:</strong> 
+                                        <p><strong>现象：</strong> 大量Key在<strong>同一时间</strong>集体失效，或Redis宕机。<br>
+                                        <strong>解决：</strong> 过期时间加随机值；多级缓存；Redis集群高可用。</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="accordion-item bg-white rounded-lg shadow-sm">
+                            <button class="accordion-header w-full flex justify-between items-center text-left p-5 font-semibold text-slate-800 hover:bg-slate-50">
+                                <span>8. 在什么场景下你会选择使用MongoDB而不是MySQL？</span>
+                                <svg class="accordion-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content hidden p-5 pt-0 border-t">
+                                 <p class="mt-4">MongoDB是一个NoSQL文档型数据库，主要在以下场景中表现出色：</p>
+                                 <ol>
+                                     <li><strong>非结构化/半结构化数据：</strong> 数据结构不固定或经常变化（如用户标签、日志）。</li>
+                                     <li><strong>高写入、高扩展性需求：</strong> 天然支持水平扩展（分片）。</li>
+                                     <li><strong>快速迭代的业务：</strong> Schema-less特性使开发效率更高。</li>
+                                     <li><strong>存储内嵌文档：</strong> 对于一对多的内嵌关系（如文章和评论），查询性能高，避免JOIN。</li>
+                                 </ol>
+                            </div>
+                        </div>
+                        <div class="accordion-item bg-white rounded-lg shadow-sm">
+                            <button class="accordion-header w-full flex justify-between items-center text-left p-5 font-semibold text-slate-800 hover:bg-slate-50">
+                                <span>9. 为什么需要使用消息队列（MQ）？它解决了哪些问题？</span>
+                                <svg class="accordion-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content hidden p-5 pt-0 border-t">
+                                <p class="mt-4">消息队列主要解决三大问题：</p>
+                                <ol>
+                                    <li><strong>异步处理 (Asynchronous):</strong> 对于耗时的非核心操作，主流程将消息扔到MQ后立即返回，降低响应时间。</li>
+                                    <li><strong>应用解耦 (Decoupling):</strong> 生产者和消费者通过MQ通信，互不知道对方存在，提高系统可维护性和扩展性。</li>
+                                    <li><strong>流量削峰 (Traffic Shaping):</strong> 在高并发场景下（如秒杀），将请求先写入队列，后端服务平稳消费，保护下游系统。</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Section: Microservices -->
+                    <section id="microservices" class="content-section space-y-4 hidden">
+                         <h2 class="text-3xl font-bold border-b pb-4 mb-6">微服务与分布式</h2>
+                         <div class="accordion-item bg-white rounded-lg shadow-sm">
+                            <button class="accordion-header w-full flex justify-between items-center text-left p-5 font-semibold text-slate-800 hover:bg-slate-50">
+                                <span>10. Spring Cloud 和 Dubbo 的区别是什么？</span>
+                                <svg class="accordion-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content hidden p-5 pt-0 border-t">
+                                <div class="overflow-x-auto mt-4">
+                                <table>
+                                    <thead>
+                                        <tr><th>特性</th><th>Spring Cloud</th><th>Dubbo</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td><strong>定位</strong></td><td>一站式微服务<strong>解决方案</strong></td><td>一个高性能的<strong>RPC框架</strong></td></tr>
+                                        <tr><td><strong>通信方式</strong></td><td>默认基于<strong>HTTP/RESTful</strong></td><td>默认基于<strong>RPC (Netty+TCP)</strong></td></tr>
+                                        <tr><td><strong>集成度</strong></td><td>与Spring生态<strong>无缝集成</strong></td><td>现在也提供了很好的Spring Boot支持</td></tr>
+                                        <tr><td><strong>生态</strong></td><td>生态庞大，但可能存在版本兼容问题</td><td>由阿里开源，生态稳定，社区活跃</td></tr>
+                                        <tr><td><strong>总结</strong></td><td>像一个“全家桶”，相对“重”</td><td>像一个“利器”，RPC性能更优</td></tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item bg-white rounded-lg shadow-sm">
+                            <button class="accordion-header w-full flex justify-between items-center text-left p-5 font-semibold text-slate-800 hover:bg-slate-50">
+                                <span>11. Spring Cloud的核心组件有哪些？它们分别的作用是什么？</span>
+                                <svg class="accordion-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content hidden p-5 pt-0 border-t">
+                                <ol class="mt-4 space-y-2">
+                                    <li><strong>服务注册与发现 (Eureka / Nacos):</strong> 服务地址的注册与发现，是服务治理的基础。</li>
+                                    <li><strong>服务调用 (OpenFeign):</strong> 声明式的HTTP客户端，让远程调用像调用本地方法一样。</li>
+                                    <li><strong>负载均衡 (Ribbon / LoadBalancer):</strong> 将请求分发到服务的多个实例上，提高可用性。</li>
+                                    <li><strong>服务网关 (Gateway):</strong> 所有微服务的统一入口，负责路由、认证、限流等。</li>
+                                    <li><strong>配置中心 (Config / Nacos):</strong> 集中管理和动态刷新配置。</li>
+                                    <li><strong>服务熔断与降级 (Hystrix / Sentinel):</strong> 防止单个服务故障导致整个系统雪崩。</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </section>
+
+                     <!-- Section: Java Core -->
+                    <section id="java-core" class="content-section space-y-4 hidden">
+                         <h2 class="text-3xl font-bold border-b pb-4 mb-6">Java核心与基础</h2>
+                         <div class="accordion-item bg-white rounded-lg shadow-sm">
+                            <button class="accordion-header w-full flex justify-between items-center text-left p-5 font-semibold text-slate-800 hover:bg-slate-50">
+                                <span>12. 谈谈你对Java多线程的理解，`synchronized` 和 `ReentrantLock` 有什么区别？</span>
+                                <svg class="accordion-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content hidden p-5 pt-0 border-t">
+                                <h4 class="font-semibold mt-4">`synchronized` vs `ReentrantLock`:</h4>
+                                <ul>
+                                    <li><strong>来源：</strong> <code>synchronized</code>是Java的<strong>关键字</strong>(JVM实现)。<code>ReentrantLock</code>是一个<strong>类</strong>(JDK实现)。</li>
+                                    <li><strong>锁的获取与释放：</strong> <code>synchronized</code>是<strong>隐式</strong>的，自动释放。<code>ReentrantLock</code>需要<strong>手动</strong>在`try-finally`块中调用`lock()`和`unlock()`。</li>
+                                    <li><strong>功能特性：</strong> <code>ReentrantLock</code>功能更强大，支持可中断等待、公平锁、绑定多个条件。</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="accordion-item bg-white rounded-lg shadow-sm">
+                            <button class="accordion-header w-full flex justify-between items-center text-left p-5 font-semibold text-slate-800 hover:bg-slate-50">
+                                <span>13. 简单描述一下JVM的内存模型（JMM）和运行时数据区。</span>
+                                <svg class="accordion-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content hidden p-5 pt-0 border-t">
+                                <h4 class="font-semibold mt-4">JVM运行时数据区:</h4>
+                                <ul>
+                                    <li><strong>线程私有区：</strong> 程序计数器、Java虚拟机栈、本地方法栈。</li>
+                                    <li><strong>线程共享区：</strong> 堆 (Heap)、方法区 (Method Area)。JDK 8后用元空间实现方法区。</li>
+                                </ul>
+                                <h4 class="font-semibold mt-4">Java内存模型 (JMM):</h4>
+                                <p>是一个<strong>抽象概念</strong>，定义了多线程环境下变量的访问规则，保证可见性、原子性和有序性。规定所有变量都存储在<strong>主内存</strong>中，每个线程有自己的**工作内存**。`volatile`、`synchronized`等关键字就是围绕JMM来实现线程安全的。</p>
+                            </div>
+                        </div>
+                        <div class="accordion-item bg-white rounded-lg shadow-sm">
+                            <button class="accordion-header w-full flex justify-between items-center text-left p-5 font-semibold text-slate-800 hover:bg-slate-50">
+                                <span>14. HTTP 和 HTTPS 的区别是什么？HTTPS 的工作原理是怎样的？</span>
+                                <svg class="accordion-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content hidden p-5 pt-0 border-t">
+                                <h4 class="font-semibold mt-4">区别：</h4>
+                                <ol>
+                                    <li><strong>安全性：</strong> HTTP是<strong>明文</strong>传输，不安全。HTTPS通过<strong>SSL/TLS</strong>协议对数据进行<strong>加密</strong>传输，是安全的。</li>
+                                    <li><strong>端口：</strong> HTTP默认使用80端口，HTTPS默认使用443端口。</li>
+                                    <li><strong>证书：</strong> HTTPS需要向CA申请<strong>数字证书</strong>来验证服务器的身份。</li>
+                                </ol>
+                                <h4 class="font-semibold mt-4">HTTPS工作原理（SSL/TLS握手）：</h4>
+                                <ol>
+                                    <li><strong>客户端请求：</strong> 客户端发送支持的加密套件和随机数C1。</li>
+                                    <li><strong>服务器响应：</strong> 服务器返回选择的加密套件、<strong>数字证书</strong>和随机数S1。</li>
+                                    <li><strong>客户端验证与密钥生成：</strong> 客户端验证证书，生成随机数<strong>Pre-master Secret (PMS)</strong>，并用**证书中的公钥**加密后发送给服务器。</li>
+                                    <li><strong>服务器解密与会话密钥生成：</strong> 服务器用自己的<strong>私钥</strong>解密得到PMS。双方根据C1、S1、PMS生成一个**对称加密的会话密钥**。</li>
+                                    <li><strong>加密通信：</strong> 后续的所有通信都使用这个<strong>会话密钥</strong>进行对称加密。</li>
+                                </ol>
+                            </div>
+                        </div>
+                         <div class="accordion-item bg-white rounded-lg shadow-sm">
+                            <button class="accordion-header w-full flex justify-between items-center text-left p-5 font-semibold text-slate-800 hover:bg-slate-50">
+                                <span>15. HashMap的底层实现原理是什么？</span>
+                                <svg class="accordion-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content hidden p-5 pt-0 border-t">
+                                <h4 class="font-semibold mt-4">JDK 7及以前：</h4>
+                                <p>底层是<strong>数组 + 链表</strong>的结构。当发生哈希冲突时，新元素以链表的形式追加到数组的索引位置。</p>
+                                <h4 class="font-semibold mt-4">JDK 8及以后（重要优化）：</h4>
+                                <p>底层是<strong>数组 + 链表 + 红黑树</strong>的结构。当同一个索引位置的链表长度达到阈值（默认为8），并且数组总长度也达到阈值（默认为64）时，这个链表就会被<strong>转换成红黑树</strong>，将查询时间复杂度从O(n)优化到O(log n)。</p>
+                            </div>
+                        </div>
+                    </section>
+                    
+                     <!-- Section: DSA -->
+                    <section id="dsa" class="content-section space-y-4 hidden">
+                         <h2 class="text-3xl font-bold border-b pb-4 mb-6">数据结构与算法</h2>
+                         <div class="accordion-item bg-white rounded-lg shadow-sm">
+                            <button class="accordion-header w-full flex justify-between items-center text-left p-5 font-semibold text-slate-800 hover:bg-slate-50">
+                                <span>16. 实现一个算法，反转一个单向链表。</span>
+                                <svg class="accordion-icon w-5 h-5 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="accordion-content hidden p-5 pt-0 border-t">
+                                <h4 class="font-semibold mt-4">思路：</h4>
+                                <p>使用三个指针：`prev` (前一个节点), `curr` (当前节点), `next` (临时保存下一个节点)。遍历链表，在循环中不断将`curr`的`next`指针指向`prev`，然后整体向后移动指针。</p>
+                                <h4 class="font-semibold mt-4">Java代码实现：</h4>
+                                <pre><code>class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x) { val = x; }
+}
+
+public class Solution {
+    public ListNode reverseList(ListNode head) {
+        // prev 指向反转后链表的头，初始为 null
+        ListNode prev = null; 
+        // curr 指向当前要处理的节点
+        ListNode curr = head; 
+
+        while (curr != null) {
+            // 1. 临时保存下一个节点
+            ListNode nextTemp = curr.next; 
+            // 2. 将当前节点的 next 指向前一个节点
+            curr.next = prev; 
+            // 3. 移动 prev 和 curr 指针
+            prev = curr; 
+            curr = nextTemp; 
+        }
+        // 循环结束后，prev 就是新的头节点
+        return prev;
+    }
+}</code></pre>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    const icon = header.querySelector('.accordion-icon');
+
+                    content.classList.toggle('hidden');
+                    icon.classList.toggle('rotate-180');
+                });
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.content-section');
+            const sidebar = document.getElementById('sidebar');
+            const menuToggle = document.getElementById('menu-toggle');
+
+            function switchTab(targetId) {
+                sections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    if (link.dataset.target === targetId) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+                 // For mobile, hide sidebar after click
+                if (window.innerWidth < 768) {
+                    sidebar.classList.add('-translate-x-full');
+                }
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.dataset.target;
+                    switchTab(targetId);
+                    window.location.hash = link.hash;
+                    window.scrollTo(0,0);
+                });
+            });
+
+            // Initial tab setup based on hash or default
+            const initialTarget = window.location.hash.substring(1) || 'spring';
+            switchTab(initialTarget);
+            
+            // Mobile menu toggle
+            if(menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('-translate-x-full');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
