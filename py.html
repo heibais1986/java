@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python 工程师面试指南</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Google Fonts 的 Inter 和 Fira Code 字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- 引入 Lucide 图标库 -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* 自定义样式 */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* gray-50 */
+        }
+        /* 代码块样式 */
+        pre {
+            font-family: 'Fira Code', monospace;
+            background-color: #1e293b; /* slate-800 */
+            color: #e2e8f0; /* slate-200 */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-size: 0.875rem;
+            line-height: 1.5rem;
+        }
+        /* 标题下划线 */
+        .section-heading::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background-color: #3b82f6; /* blue-500 */
+            margin-top: 0.5rem;
+        }
+        /* 问题卡片样式 */
+        .question-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- 页面头部 -->
+    <header class="bg-white shadow-md">
+        <div class="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl font-bold text-gray-900 tracking-tight">Python 工程师面试指南</h1>
+            <p class="mt-2 text-lg text-gray-600">一份涵盖核心知识、算法、Web框架及系统设计的全面指南。</p>
+        </div>
+    </header>
+
+    <!-- 主体内容 -->
+    <main class="max-w-5xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        
+        <!-- 1. Python 核心知识 -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold section-heading">Python 核心知识</h2>
+            <div class="mt-8 space-y-8">
+                <!-- 问题 1.1 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 question-card">
+                    <h3 class="text-xl font-semibold text-blue-600">1. 解释 Python 的 GIL (全局解释器锁)</h3>
+                    <p class="mt-4 text-gray-700">GIL 是 CPython 解释器中的一个互斥锁，它保证了在同一进程中，只有一个线程能同时执行 Python 的字节码。它的存在主要是为了简化 CPython 的内存管理。对于 CPU 密集型任务，应使用多进程；对于 I/O 密集型任务，多线程仍然可以提升效率，因为线程在等待 I/O 时会释放 GIL。</p>
+                </div>
+                <!-- 问题 1.2 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 question-card">
+                    <h3 class="text-xl font-semibold text-blue-600">2. Python 的内存管理机制是怎样的？</h3>
+                    <p class="mt-4 text-gray-700">主要由三部分组成：<strong>引用计数</strong>（主要机制，当对象引用计数为0时回收）、<strong>标记-清除</strong>（解决循环引用问题）和<strong>分代回收</strong>（对标记-清除的优化，提高效率）。</p>
+                </div>
+                <!-- 问题 1.3 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 question-card">
+                    <h3 class="text-xl font-semibold text-blue-600">3. 什么是装饰器 (Decorator)？请写一个例子。</h3>
+                    <p class="mt-4 text-gray-700">装饰器是一个函数，它接受另一个函数作为参数，并返回一个新的函数，用于在不修改原函数代码的情况下增加额外功能。</p>
+                    <pre><code class="language-python">import time
+
+def timing_decorator(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        end_time = time.time()
+        print(f"'{func.__name__}' ran in: {end_time - start_time:.4f} sec")
+        return result
+    return wrapper
+
+@timing_decorator
+def my_function(n):
+    sum = 0
+    for i in range(n):
+        sum += i
+    return sum
+
+my_function(1000000)
+# 输出: 'my_function' ran in: 0.0489 sec</code></pre>
+                </div>
+                <!-- 问题 1.4 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 question-card">
+                    <h3 class="text-xl font-semibold text-blue-600">4. 什么是生成器 (Generator) 和迭代器 (Iterator)？</h3>
+                    <p class="mt-4 text-gray-700"><strong>迭代器</strong>是实现了 `__iter__()` 和 `__next__()` 方法的对象。<strong>生成器</strong>是一种特殊的迭代器，使用 `yield` 关键字返回值，它支持惰性求值，非常节省内存。</p>
+                    <pre><code class="language-python"># 生成器函数
+def fibonacci_generator(n):
+    a, b = 0, 1
+    count = 0
+    while count < n:
+        yield a
+        a, b = b, a + b
+        count += 1
+
+# 使用
+for num in fibonacci_generator(5):
+    print(num)</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 数据结构与算法 -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold section-heading">数据结构与算法</h2>
+            <div class="mt-8 space-y-8">
+                <!-- 问题 2.1 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 question-card">
+                    <h3 class="text-xl font-semibold text-blue-600">1. 如何在 Python 中反转一个字符串？</h3>
+                    <p class="mt-4 text-gray-700">最简洁的方法是使用切片 `[::-1]`。</p>
+                    <pre><code class="language-python">my_string = "hello"
+reversed_string = my_string[::-1]
+print(reversed_string) # 输出: "olleh"</code></pre>
+                </div>
+                 <!-- 问题 2.2 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 question-card">
+                    <h3 class="text-xl font-semibold text-blue-600">2. 给定一个列表，移除所有重复的元素并保持顺序。</h3>
+                    <p class="mt-4 text-gray-700">可以利用 `dict.fromkeys()`，因为在 Python 3.7+ 中字典是保持插入顺序的。</p>
+                    <pre><code class="language-python">my_list = [1, 2, 2, 3, 4, 3, 5]
+unique_list_ordered = list(dict.fromkeys(my_list))
+print(unique_list_ordered) # 输出: [1, 2, 3, 4, 5]</code></pre>
+                </div>
+                <!-- 问题 2.3 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 question-card">
+                    <h3 class="text-xl font-semibold text-blue-600">3. 实现一个二分查找算法。</h3>
+                    <p class="mt-4 text-gray-700">二分查找适用于已排序的序列，通过不断将搜索区间减半来查找目标值。</p>
+                    <pre><code class="language-python">def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1 # 未找到</code></pre>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 3. Web 框架 -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold section-heading">Web 框架 (Django/Flask)</h2>
+            <div class="mt-8 space-y-8">
+                <!-- 问题 3.1 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 question-card">
+                    <h3 class="text-xl font-semibold text-blue-600">1. 解释 Django 的 MVT 架构。</h3>
+                    <p class="mt-4 text-gray-700">Django 遵循 MVT (Model-View-Template) 架构。<strong>Model</strong> 负责数据层和数据库交互；<strong>View</strong> 负责业务逻辑处理，接收请求并返回响应；<strong>Template</strong> 负责表现层，生成用户看到的 HTML 页面。</p>
+                </div>
+                <!-- 问题 3.2 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 question-card">
+                    <h3 class="text-xl font-semibold text-blue-600">2. Flask 和 Django 的主要区别是什么？</h3>
+                    <p class="mt-4 text-gray-700"><strong>Django</strong> 是一个“自带电池”的全功能框架，提供了 ORM、Admin 后台等大量内置组件，适合大型复杂项目。<strong>Flask</strong> 是一个微框架，核心简单，灵活性极高，需要开发者自己选择组件，适合小型应用和 API 开发。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 数据库与系统设计 -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold section-heading">数据库与系统设计</h2>
+            <div class="mt-8 space-y-8">
+                <!-- 问题 4.1 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 question-card">
+                    <h3 class="text-xl font-semibold text-blue-600">1. 什么是数据库索引？为什么它能提高查询速度？</h3>
+                    <p class="mt-4 text-gray-700">索引是一种特殊的数据结构（如 B-Tree），它存储了表中特定列的值和其物理地址。当查询时，数据库可以利用索引快速定位数据行，避免全表扫描，从而大幅提升查询速度，其原理类似于书的目录。</p>
+                </div>
+                <!-- 问题 4.2 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 question-card">
+                    <h3 class="text-xl font-semibold text-blue-600">2. 如何设计一个短链接服务？</h3>
+                    <p class="mt-4 text-gray-700">核心思路是为每个长链接生成一个唯一的短字符串（短码），并存储它们的映射关系。<strong>生成短码</strong>：可以使用自增 ID 转换为62进制的方法来保证唯一且简短。<strong>存储</strong>：使用数据库（如 MySQL 或 Redis）存储 `short_key` 和 `long_url` 的映射。<strong>重定向</strong>：当用户访问短链接时，服务器根据 `short_key` 查找 `long_url`，并返回 301/302 重定向响应。</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-white border-t border-gray-200">
+        <div class="max-w-5xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+            <p>&copy; 2024 Python 面试指南. 祝您面试顺利！</p>
+        </div>
+    </footer>
+
+    <script>
+        // 激活 Lucide 图标
+        lucide.createIcons();
+    </script>
+</body>
+</html>
