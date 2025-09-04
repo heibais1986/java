@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0>
+    <title>DevOps/SRE 面试指南</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; }
+        h1 { color: #333; text-align: center; }
+        h2 { color: #444; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+        h3 { color: #555; cursor: pointer; margin: 10px 0; }
+        .nav { background-color: #333; padding: 10px; border-radius: 5px; margin-bottom: 20px; }
+        .nav a { color: white; margin-right: 15px; text-decoration: none; }
+        .nav a:hover { text-decoration: underline; }
+        .section { display: none; }
+        .section.active { display: block; }
+        .question { margin: 10px 0; }
+        .answer { display: none; background-color: white; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+        .toggle-icon { font-size: 0.8em; color: #777; }
+    </style>
+</head>
+<body>
+    <h1>DevOps/SRE 面试指南</h1>
+    <div class="nav">
+        <a href="#" onclick="showSection('basics')">基础知识</a>
+        <a href="#" onclick="showSection('cicd')">CI/CD</a>
+        <a href="#" onclick="showSection('containers')">容器与编排</a>
+        <a href="#" onclick="showSection('monitoring')">监控与日志</a>
+        <a href="#" onclick="showSection('failure')">故障管理</a>
+        <a href="#" onclick="showSection('terraform')">Terraform</a>
+        <a href="#" onclick="showSection('aws')">AWS</a>
+        <a href="#" onclick="showSection('chinese')">国内云厂商</a>
+        <a href="#" onclick="showSection('multi-cloud')">多云场景</a>
+    </div>
+
+    <!-- 基础知识 -->
+    <div id="basics" class="section active">
+        <h2>一、基础知识</h2>
+        <div class="question">
+            <h3 onclick="toggleAnswer('q1')">1. 什么是DevOps？核心原则？ <span class="toggle-icon">▶️</span></h3>
+            <div id="q1" class="answer">DevOps是软件开发和运维的方法论，核心原则：协作、自动化、CI/CD、监控、IaC。</div>
+        </div>
+        <div class="question">
+            <h3 onclick="toggleAnswer('q2')">2. 什么是SRE？核心职责？ <span class="toggle-icon">▶️</span></h3>
+            <div id="q2" class="answer">SRE（站点可靠性工程）核心职责：系统可靠性、自动化运维、容量规划、监控、故障管理、成本优化。</div>
+        </div>
+    </div>
+
+    <!-- CI/CD -->
+    <div id="cicd" class="section">
+        <h2>二、CI/CD与自动化</h2>
+        <div class="question">
+            <h3 onclick="toggleAnswer('q3')">1. 什么是CI/CD？如何实现？ <span class="toggle-icon">▶️</span></h3>
+            <div id="q3" class="answer">CI（持续集成）和CD（持续部署）。实现步骤：代码管理→自动化构建→测试→部署→环境管理。</div>
+        </div>
+        <div class="question">
+            <h3 onclick="toggleAnswer('q4')">2. 如何设计高可用的CI/CD流水线？ <span class="toggle-icon">▶️</span></h3>
+            <div id="q4" class="answer">多环境支持、并行构建、失败重试、回滚机制、监控与报警。</div>
+        </div>
+    </div>
+
+    <!-- 容器与编排 -->
+    <div id="containers" class="section">
+        <h2>三、容器与编排</h2>
+        <div class="question">
+            <h3 onclick="toggleAnswer('q5')">1. Docker是什么？核心组件？ <span class="toggle-icon">▶️</span></h3>
+            <div id="q5" class="answer">Docker是容器化平台，核心组件：Docker Engine、镜像、容器、Registry。</div>
+        </div>
+        <div class="question">
+            <h3 onclick="toggleAnswer('q6')">2. Kubernetes核心组件？ <span class="toggle-icon">▶️</span></h3>
+            <div id="q6" class="answer">Master节点（API Server、Controller Manager、Scheduler）、Worker节点（Kubelet、Kube-proxy、Pod）、etcd。</div>
+        </div>
+    </div>
+
+    <!-- Terraform -->
+    <div id="terraform" class="section">
+        <h2>六、Terraform</h2>
+        <div class="question">
+            <h3 onclick="toggleAnswer('q13')">1. Terraform状态文件作用？ <span class="toggle-icon">▶️</span></h3>
+            <div id="q13" class="answer">记录资源状态，最佳实践：远程存储、状态锁定、避免敏感信息。</div>
+        </div>
+        <div class="question">
+            <h3 onclick="toggleAnswer('q14')">2. Terraform多云部署实现？ <span class="toggle-icon">▶️</span></h3>
+            <div id="q14" class="answer">通过Provider配置不同云厂商，如AWS和阿里云。</div>
+        </div>
+    </div>
+
+    <!-- AWS -->
+    <div id="aws" class="section">
+        <h2>七、AWS</h2>
+        <div class="question">
+            <h3 onclick="toggleAnswer('q15')">1. AWS VPC核心组件？ <span class="toggle-icon">▶️</span></h3>
+            <div id="q15" class="answer">子网（公有/私有）、安全组、NACL、多可用区部署。</div>
+        </div>
+        <div class="question">
+            <h3 onclick="toggleAnswer('q16')">2. AWS服务选型对比？ <span class="toggle-icon">▶️</span></h3>
+            <div id="q16" class="answer">对象存储：S3 vs Glacier；计算：EC2 vs Lambda vs EKS；数据库：RDS vs DynamoDB。</div>
+        </div>
+    </div>
+
+    <!-- 国内云厂商 -->
+    <div id="chinese" class="section">
+        <h2>八、国内云厂商</h2>
+        <div class="question">
+            <h3 onclick="toggleAnswer('q17')">1. 阿里云/腾讯云/华为云服务对比？ <span class="toggle-icon">▶️</span></h3>
+            <div id="q17" class="answer">对象存储：OSS/COS/OBS；计算：ECS/CVM/ECS；容器：ACK/TKE/CCE。</div>
+        </div>
+        <div class="question">
+            <h3 onclick="toggleAnswer('q18')">2. 国内云厂商合规性要求？ <span class="toggle-icon">▶️</span></h3>
+            <div id="q18" class="answer">等保2.0、数据本地化、ICP备案。</div>
+        </div>
+    </div>
+
+    <!-- 多云场景 -->
+    <div id="multi-cloud" class="section">
+        <h2>九、多云场景</h2>
+        <div class="question">
+            <h3 onclick="toggleAnswer('q19')">1. 跨云网络互通方案？ <span class="toggle-icon">▶️</span></h3>
+            <div id="q19" class="answer">VPN、专线、SD-WAN。</div>
+        </div>
+        <div class="question">
+            <h3 onclick="toggleAnswer('q20')">2. 多云成本优化策略？ <span class="toggle-icon">▶️</span></h3>
+            <div id="q20" class="answer">预留实例、竞价实例、多云监控工具。</div>
+        </div>
+    </div>
+
+    <script>
+        // 切换章节
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // 折叠/展开答案
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            answer.style.display = (answer.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>
