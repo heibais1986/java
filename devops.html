@@ -24,6 +24,17 @@
             white-space: pre-wrap;
             word-wrap: break-word;
         }
+        .prose table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .prose th, .prose td {
+            border: 1px solid #e5e7eb;
+            padding: 0.5rem 1rem;
+        }
+        .prose th {
+            background-color: #f9fafb;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-br from-gray-100 to-blue-100 flex items-center justify-center min-h-screen p-4">
@@ -33,7 +44,7 @@
         <p class="text-center text-gray-500 mb-8">一份涵盖核心知识点的交互式指南 (点击问题展开答案)</p>
         
         <div id="interactive-guide" class="space-y-4">
-            <!-- Section Template -->
+            <!-- Section 1 -->
             <div class="section-container">
                 <h2 class="text-xl font-bold text-gray-700 my-4 border-b-2 border-blue-500 pb-2">一、基础知识</h2>
                 <div class="space-y-2">
@@ -358,7 +369,282 @@
                 </div>
             </div>
             
-            <!-- More sections will be added dynamically -->
+            <!-- Section 8: AWS -->
+            <div class="section-container">
+                <h2 class="text-xl font-bold text-gray-700 my-4 border-b-2 border-blue-500 pb-2">八、AWS 核心问题</h2>
+                <div class="space-y-2">
+                     <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>1. AWS 网络架构 (VPC)</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <p><b>核心组件:</b></p>
+                                <ul>
+                                    <li><b>子网:</b> 公有子网 (关联互联网网关) vs 私有子网 (关联NAT网关)。</li>
+                                    <li><b>安全组 (SG):</b> 实例级别的防火墙，支持白名单规则。</li>
+                                    <li><b>NACL:</b> 子网级别的网络访问控制，支持黑白名单。</li>
+                                    <li><b>高可用:</b> 多可用区 (AZ) 部署，避免单点故障。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>2. AWS 服务选型对比</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <ul>
+                                    <li><b>对象存储:</b> S3 (标准) vs Glacier (归档)。</li>
+                                    <li><b>计算:</b> EC2 (虚拟机) vs Lambda (Serverless) vs EKS (容器)。</li>
+                                    <li><b>数据库:</b> RDS (托管关系型) vs DynamoDB (NoSQL) vs Aurora (高性能SQL)。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>3. AWS 安全最佳实践</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <ul>
+                                    <li><b>IAM:</b> 最小权限原则，使用角色 (Role) 替代长期访问密钥。</li>
+                                    <li><b>加密:</b> EBS/S3默认启用KMS加密。</li>
+                                    <li><b>日志审计:</b> CloudTrail记录所有API调用。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 9: Domestic Cloud Vendors -->
+            <div class="section-container">
+                <h2 class="text-xl font-bold text-gray-700 my-4 border-b-2 border-blue-500 pb-2">九、国内云厂商核心问题</h2>
+                <div class="space-y-2">
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>1. 阿里云 vs 腾讯云 vs 华为云 基础服务对比</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>功能</th>
+                                            <th>阿里云</th>
+                                            <th>腾讯云</th>
+                                            <th>华为云</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>对象存储</td>
+                                            <td>OSS</td>
+                                            <td>COS</td>
+                                            <td>OBS</td>
+                                        </tr>
+                                        <tr>
+                                            <td>计算</td>
+                                            <td>ECS</td>
+                                            <td>CVM</td>
+                                            <td>ECS</td>
+                                        </tr>
+                                        <tr>
+                                            <td>容器</td>
+                                            <td>ACK</td>
+                                            <td>TKE</td>
+                                            <td>CCE</td>
+                                        </tr>
+                                        <tr>
+                                            <td>网络</td>
+                                            <td>VPC</td>
+                                            <td>VPC</td>
+                                            <td>VPC</td>
+                                        </tr>
+                                        <tr>
+                                            <td>数据库</td>
+                                            <td>RDS</td>
+                                            <td>CDB</td>
+                                            <td>RDS</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Serverless</td>
+                                            <td>Function Compute</td>
+                                            <td>SCF</td>
+                                            <td>FunctionGraph</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>2. 国内云厂商的合规性要求</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <ul>
+                                    <li><b>等保2.0:</b> 必须通过网络安全等级保护测评。</li>
+                                    <li><b>数据本地化:</b> 用户数据需存储在中国境内（如北京、上海区域）。</li>
+                                    <li><b>ICP备案:</b> 国内云厂商要求域名和网站必须完成ICP备案。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>3. 国内云厂商的差异化功能</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <p><b>阿里云:</b></p>
+                                <ul>
+                                    <li><b>混合云:</b> 专有云 (Apsara Stack) 支持私有化部署。</li>
+                                    <li><b>AI集成:</b> 机器学习PAI平台。</li>
+                                </ul>
+                                <p><b>腾讯云:</b></p>
+                                <ul>
+                                    <li><b>游戏优化:</b> 全球加速 (GAAP) 和游戏服务器引擎 (GSE)。</li>
+                                    <li><b>音视频:</b> 云直播 (CSS) 和TRTC。</li>
+                                </ul>
+                                <p><b>华为云:</b></p>
+                                <ul>
+                                    <li><b>政企支持:</b> 政务云和鲲鹏ARM架构实例。</li>
+                                    <li><b>边缘计算:</b> IEF (智能边缘平台)。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 10: Multi-cloud -->
+            <div class="section-container">
+                <h2 class="text-xl font-bold text-gray-700 my-4 border-b-2 border-blue-500 pb-2">十、多云与混合云场景</h2>
+                <div class="space-y-2">
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>1. Terraform 实现多云部署</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <p><b>Provider 配置:</b></p>
+<pre><code>provider "aws" { region = "us-east-1" }
+provider "alicloud" { region = "cn-hangzhou" }</code></pre>
+                                <p><b>资源标签:</b> 通过 <code>tags</code> 区分云厂商 (如 <code>cloud = "aws"</code>)。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>2. 跨云网络互通</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <ul>
+                                    <li><b>VPN:</b> AWS VPN Gateway + 阿里云VPN网关。</li>
+                                    <li><b>专线:</b> AWS Direct Connect + 腾讯云DCA。</li>
+                                    <li><b>SD-WAN:</b> 华为云SD-WAN解决方案。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>3. 成本优化策略</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <ul>
+                                    <li><b>预留实例:</b> AWS Reserved Instances vs 阿里云包年包月。</li>
+                                    <li><b>竞价实例:</b> AWS Spot Instances vs 腾讯云竞价实例。</li>
+                                    <li><b>多云监控:</b> 使用Prometheus + Thanos或云厂商的跨云成本分析工具。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 11: Practical Questions -->
+            <div class="section-container">
+                <h2 class="text-xl font-bold text-gray-700 my-4 border-b-2 border-blue-500 pb-2">十一、实战问题示例</h2>
+                <div class="space-y-2">
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>1. 用Terraform部署一个高可用的AWS EKS集群</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <p><b>步骤:</b></p>
+                                <ol>
+                                    <li>通过 <code>aws_vpc</code> 和 <code>aws_subnet</code> 创建多AZ的VPC。</li>
+                                    <li>使用 <code>aws_eks_cluster</code> 创建托管控制平面。</li>
+                                    <li>通过 <code>aws_eks_node_group</code> 创建跨AZ的节点组。</li>
+                                    <li>使用 <code>aws_launch_template</code> 配置节点安全组。</li>
+                                    <li>通过 <code>kubectl</code> 部署CNI插件 (如Calico)。</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>2. 阿里云SLB与腾讯云CLB的核心区别</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <ul>
+                                    <li><b>SLB:</b> 四层 (TCP/UDP) 和七层 (HTTP/HTTPS) 负载均衡，支持跨可用区。</li>
+                                    <li><b>CLB:</b> 四层 (LVS) 和七层 (Tengine)，支持会话保持和WAF集成。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>3. 华为云CCE与阿里云ACK的对比</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <ul>
+                                    <li><b>CCE:</b> 深度集成Kubernetes，支持裸金属服务器和ARM架构。</li>
+                                    <li><b>ACK:</b> 与阿里云监控、日志服务无缝集成，支持托管节点池。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="section-container">
+                <h2 class="text-xl font-bold text-gray-700 my-4 border-b-2 border-blue-500 pb-2">总结</h2>
+                <div class="prose max-w-none p-4 text-gray-600 bg-gray-50 rounded-lg">
+                    <ul>
+                        <li><b>Terraform:</b> 是多云部署的核心工具，需掌握状态管理和模块化设计。</li>
+                        <li><b>AWS:</b> 作为全球云标杆，需熟悉网络、安全和成本优化。</li>
+                        <li><b>国内云厂商:</b> 需关注合规性、本地化功能和差异化服务。</li>
+                        <li><b>多云场景:</b> 需解决网络互通、成本管理和统一监控问题。</li>
+                    </ul>
+                    <p>建议结合具体岗位需求（如AWS专项或国内云迁移）深入准备，并参考云厂商官方文档（如AWS Well-Architected Framework、阿里云最佳实践）。</p>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -372,14 +658,6 @@
                     const content = button.nextElementSibling;
                     const icon = button.querySelector('svg');
                     
-                    // Optional: Close other accordions when one is opened
-                    // button.closest('#interactive-guide').querySelectorAll('.accordion-content').forEach(item => {
-                    //     if (item !== content && item.style.maxHeight) {
-                    //         item.style.maxHeight = null;
-                    //         item.previousElementSibling.querySelector('svg').classList.remove('rotate-180');
-                    //     }
-                    // });
-
                     if (content.style.maxHeight) {
                         content.style.maxHeight = null;
                         icon.classList.remove('rotate-180');
@@ -394,3 +672,4 @@
     <script src="https://kit.fontawesome.com/662a7b1b34.js" crossorigin="anonymous"></script>
 </body>
 </html>
+
