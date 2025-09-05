@@ -2,142 +2,395 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0>
-    <title>DevOps/SRE 面试指南</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps & SRE 工程师交互式面试指南</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; }
-        h1 { color: #333; text-align: center; }
-        h2 { color: #444; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
-        h3 { color: #555; cursor: pointer; margin: 10px 0; }
-        .nav { background-color: #333; padding: 10px; border-radius: 5px; margin-bottom: 20px; }
-        .nav a { color: white; margin-right: 15px; text-decoration: none; }
-        .nav a:hover { text-decoration: underline; }
-        .section { display: none; }
-        .section.active { display: block; }
-        .question { margin: 10px 0; }
-        .answer { display: none; background-color: white; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
-        .toggle-icon { font-size: 0.8em; color: #777; }
+        body {
+            font-family: 'Inter', 'Helvetica Neue', 'Arial', sans-serif;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .accordion-button svg {
+            transition: transform 0.3s ease-out;
+        }
+        .prose pre {
+            background-color: #f3f4f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
     </style>
 </head>
-<body>
-    <h1>DevOps/SRE 面试指南</h1>
-    <div class="nav">
-        <a href="#" onclick="showSection('basics')">基础知识</a>
-        <a href="#" onclick="showSection('cicd')">CI/CD</a>
-        <a href="#" onclick="showSection('containers')">容器与编排</a>
-        <a href="#" onclick="showSection('monitoring')">监控与日志</a>
-        <a href="#" onclick="showSection('failure')">故障管理</a>
-        <a href="#" onclick="showSection('terraform')">Terraform</a>
-        <a href="#" onclick="showSection('aws')">AWS</a>
-        <a href="#" onclick="showSection('chinese')">国内云厂商</a>
-        <a href="#" onclick="showSection('multi-cloud')">多云场景</a>
-    </div>
+<body class="bg-gradient-to-br from-gray-100 to-blue-100 flex items-center justify-center min-h-screen p-4">
+    <!-- Main Content -->
+    <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-6 md:p-8 w-full max-w-4xl">
+        <h1 class="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-2">DevOps & SRE 工程师面试指南</h1>
+        <p class="text-center text-gray-500 mb-8">一份涵盖核心知识点的交互式指南 (点击问题展开答案)</p>
+        
+        <div id="interactive-guide" class="space-y-4">
+            <!-- Section Template -->
+            <div class="section-container">
+                <h2 class="text-xl font-bold text-gray-700 my-4 border-b-2 border-blue-500 pb-2">一、基础知识</h2>
+                <div class="space-y-2">
+                    <!-- Q1 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>1. 什么是DevOps？DevOps的核心原则是什么？</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <p>DevOps是一种软件开发和运维的方法论，旨在通过自动化和监控来缩短软件的开发周期和提高软件的发布频率。其核心原则包括：</p>
+                                <ul>
+                                    <li><b>协作 (Collaboration):</b> 开发团队和运维团队之间的紧密合作。</li>
+                                    <li><b>自动化 (Automation):</b> 自动化重复性任务，如构建、测试、部署等。</li>
+                                    <li><b>持续集成/持续部署 (CI/CD):</b> 代码提交后自动进行集成和部署。</li>
+                                    <li><b>监控与日志 (Monitoring & Logging):</b> 实时监控系统性能和日志，及时发现和解决问题。</li>
+                                    <li><b>基础设施即代码 (IaC):</b> 将基础设施配置和管理代码化，便于版本控制和自动化。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Q2 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>2. 什么是SRE？SRE的核心职责是什么？</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <p>SRE（Site Reliability Engineering，站点可靠性工程）是一种将软件工程应用于运维的方法论，旨在构建高可靠、可扩展的系统。其核心职责包括：</p>
+                                <ul>
+                                    <li><b>系统可靠性:</b> 确保系统的高可用性和稳定性。</li>
+                                    <li><b>自动化运维:</b> 减少人为干预，自动化运维任务。</li>
+                                    <li><b>容量规划:</b> 根据业务需求合理规划系统资源。</li>
+                                    <li><b>监控与报警:</b> 建立完善的监控和报警系统。</li>
+                                    <li><b>故障管理:</b> 快速响应和解决系统故障。</li>
+                                    <li><b>成本优化:</b> 在保证系统可靠性的前提下，优化资源使用成本。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- 基础知识 -->
-    <div id="basics" class="section active">
-        <h2>一、基础知识</h2>
-        <div class="question">
-            <h3 onclick="toggleAnswer('q1')">1. 什么是DevOps？核心原则？ <span class="toggle-icon">▶️</span></h3>
-            <div id="q1" class="answer">DevOps是软件开发和运维的方法论，核心原则：协作、自动化、CI/CD、监控、IaC。</div>
-        </div>
-        <div class="question">
-            <h3 onclick="toggleAnswer('q2')">2. 什么是SRE？核心职责？ <span class="toggle-icon">▶️</span></h3>
-            <div id="q2" class="answer">SRE（站点可靠性工程）核心职责：系统可靠性、自动化运维、容量规划、监控、故障管理、成本优化。</div>
-        </div>
-    </div>
+            <!-- Section 2: CI/CD -->
+            <div class="section-container">
+                <h2 class="text-xl font-bold text-gray-700 my-4 border-b-2 border-blue-500 pb-2">二、CI/CD与自动化</h2>
+                <div class="space-y-2">
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>1. 什么是CI/CD？如何实现CI/CD？</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <p>CI（Continuous Integration，持续集成）是开发人员频繁地将代码集成到主干，并通过自动化构建和测试来验证代码的正确性。CD（Continuous Deployment，持续部署）是将代码自动部署到生产环境。实现步骤包括：</p>
+                                <ul>
+                                    <li><b>代码管理:</b> 使用Git等工具进行代码版本管理。</li>
+                                    <li><b>自动化构建:</b> 使用Jenkins、GitLab CI等工具进行代码构建。</li>
+                                    <li><b>自动化测试:</b> 编写单元测试、集成测试、端到端测试，并通过CI工具自动执行。</li>
+                                    <li><b>自动化部署:</b> 使用Ansible、Terraform等工具进行自动化部署。</li>
+                                    <li><b>环境管理:</b> 使用Docker、Kubernetes等工具进行环境隔离和管理。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>2. 如何设计一个高可用的CI/CD流水线？</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <p>设计一个高可用的CI/CD流水线需要考虑以下几点：</p>
+                                <ul>
+                                    <li><b>多环境支持:</b> 开发、测试、预发布、生产环境。</li>
+                                    <li><b>并行构建:</b> 使用多个构建节点并行执行任务，提高构建速度。</li>
+                                    <li><b>失败重试机制:</b> 在构建或测试失败时自动重试。</li>
+                                    <li><b>回滚机制:</b> 部署失败时自动回滚到上一个稳定版本。</li>
+                                    <li><b>监控与报警:</b> 监控CI/CD流水线的状态，并在失败时发送报警。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- CI/CD -->
-    <div id="cicd" class="section">
-        <h2>二、CI/CD与自动化</h2>
-        <div class="question">
-            <h3 onclick="toggleAnswer('q3')">1. 什么是CI/CD？如何实现？ <span class="toggle-icon">▶️</span></h3>
-            <div id="q3" class="answer">CI（持续集成）和CD（持续部署）。实现步骤：代码管理→自动化构建→测试→部署→环境管理。</div>
-        </div>
-        <div class="question">
-            <h3 onclick="toggleAnswer('q4')">2. 如何设计高可用的CI/CD流水线？ <span class="toggle-icon">▶️</span></h3>
-            <div id="q4" class="answer">多环境支持、并行构建、失败重试、回滚机制、监控与报警。</div>
-        </div>
-    </div>
+            <!-- Section 3: Containers -->
+            <div class="section-container">
+                <h2 class="text-xl font-bold text-gray-700 my-4 border-b-2 border-blue-500 pb-2">三、容器与编排</h2>
+                 <div class="space-y-2">
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>1. Docker是什么？Docker的核心组件有哪些？</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <p>Docker是一个开源的容器化平台，允许开发者将应用及其依赖打包到一个轻量级、可移植的容器中。核心组件包括：</p>
+                                <ul>
+                                    <li><b>Docker Engine:</b> Docker的核心服务，负责管理容器。</li>
+                                    <li><b>Docker Images:</b> 容器的只读模板，包含应用及其依赖。</li>
+                                    <li><b>Docker Containers:</b> 从镜像创建的运行实例。</li>
+                                    <li><b>Docker Registry:</b> 存储和分发镜像的服务，如Docker Hub。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>2. Kubernetes是什么？Kubernetes的核心组件有哪些？</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <p>Kubernetes (K8s) 是一个开源的容器编排平台，用于自动化部署、扩展和管理容器化应用。核心组件包括：</p>
+                                <p><b>Master节点:</b></p>
+                                <ul>
+                                    <li><b>API Server:</b> 提供Kubernetes API，负责集群管理。</li>
+                                    <li><b>Controller Manager:</b> 管理集群控制器。</li>
+                                    <li><b>Scheduler:</b> 调度Pod到合适的节点。</li>
+                                </ul>
+                                <p><b>Worker节点:</b></p>
+                                <ul>
+                                    <li><b>Kubelet:</b> 管理节点上的Pod和容器。</li>
+                                    <li><b>Kube-proxy:</b> 负责网络代理和负载均衡。</li>
+                                </ul>
+                                <p><b>其他核心组件:</b></p>
+                                <ul>
+                                    <li><b>Pod:</b> Kubernetes的最小部署单元。</li>
+                                    <li><b>etcd:</b> 分布式键值存储，用于存储集群配置和状态。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- 容器与编排 -->
-    <div id="containers" class="section">
-        <h2>三、容器与编排</h2>
-        <div class="question">
-            <h3 onclick="toggleAnswer('q5')">1. Docker是什么？核心组件？ <span class="toggle-icon">▶️</span></h3>
-            <div id="q5" class="answer">Docker是容器化平台，核心组件：Docker Engine、镜像、容器、Registry。</div>
-        </div>
-        <div class="question">
-            <h3 onclick="toggleAnswer('q6')">2. Kubernetes核心组件？ <span class="toggle-icon">▶️</span></h3>
-            <div id="q6" class="answer">Master节点（API Server、Controller Manager、Scheduler）、Worker节点（Kubelet、Kube-proxy、Pod）、etcd。</div>
-        </div>
-    </div>
+             <!-- Section 4: Monitoring -->
+            <div class="section-container">
+                <h2 class="text-xl font-bold text-gray-700 my-4 border-b-2 border-blue-500 pb-2">四、监控与日志</h2>
+                <div class="space-y-2">
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>1. 如何设计一个高效的监控系统？</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <p>设计一个高效的监控系统需要考虑以下几点：</p>
+                                <ul>
+                                    <li><b>指标收集:</b> 使用Prometheus、Zabbix等工具收集系统指标（CPU、内存、网络等）。</li>
+                                    <li><b>日志收集:</b> 使用ELK（Elasticsearch、Logstash、Kibana）或Fluentd收集和分析日志。</li>
+                                    <li><b>报警机制:</b> 设置合理的报警阈值，并通过邮件、短信、Slack等渠道发送报警。</li>
+                                    <li><b>可视化:</b> 使用Grafana、Kibana等工具进行数据可视化。</li>
+                                    <li><b>分布式追踪:</b> 使用Jaeger、Zipkin等工具追踪分布式系统的请求链路。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>2. 如何排查一个线上服务的性能问题？</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <p>排查线上服务性能问题的步骤包括：</p>
+                                <ul>
+                                    <li><b>监控指标:</b> 检查CPU、内存、磁盘、网络等指标是否异常。</li>
+                                    <li><b>日志分析:</b> 查看应用日志、系统日志，寻找错误或警告信息。</li>
+                                    <li><b>请求追踪:</b> 使用分布式追踪工具分析请求链路，定位性能瓶颈。</li>
+                                    <li><b>数据库性能:</b> 检查数据库查询性能，是否存在慢查询。</li>
+                                    <li><b>代码分析:</b> 使用性能分析工具（如pprof）分析代码性能。</li>
+                                    <li><b>压力测试:</b> 模拟高并发场景，观察系统表现。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Terraform -->
-    <div id="terraform" class="section">
-        <h2>六、Terraform</h2>
-        <div class="question">
-            <h3 onclick="toggleAnswer('q13')">1. Terraform状态文件作用？ <span class="toggle-icon">▶️</span></h3>
-            <div id="q13" class="answer">记录资源状态，最佳实践：远程存储、状态锁定、避免敏感信息。</div>
-        </div>
-        <div class="question">
-            <h3 onclick="toggleAnswer('q14')">2. Terraform多云部署实现？ <span class="toggle-icon">▶️</span></h3>
-            <div id="q14" class="answer">通过Provider配置不同云厂商，如AWS和阿里云。</div>
-        </div>
-    </div>
+            <!-- Section 5: Fault Management -->
+            <div class="section-container">
+                <h2 class="text-xl font-bold text-gray-700 my-4 border-b-2 border-blue-500 pb-2">五、故障管理</h2>
+                 <div class="space-y-2">
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>1. 什么是SRE中的SLI、SLO、SLA？</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <ul>
+                                    <li><b>SLI (Service Level Indicator):</b> 服务等级指标，衡量服务性能的指标，如请求延迟、错误率、可用性等。</li>
+                                    <li><b>SLO (Service Level Objective):</b> 服务等级目标，SLI的目标值，如“99.9%的请求延迟低于100ms”。</li>
+                                    <li><b>SLA (Service Level Agreement):</b> 服务等级协议，与客户达成的正式协议，规定了服务等级目标和违约责任。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>2. 如何设计一个故障响应流程？</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <p>设计一个故障响应流程需要考虑以下几点：</p>
+                                <ul>
+                                    <li><b>故障检测:</b> 通过监控和报警及时发现故障。</li>
+                                    <li><b>故障分级:</b> 根据故障的严重程度进行分级（如P0、P1、P2）。</li>
+                                    <li><b>故障响应:</b> 针对不同级别制定响应策略（P0立即响应，P1短时响应等）。</li>
+                                    <li><b>故障复盘:</b> 故障解决后进行复盘，分析根本原因并制定改进措施。</li>
+                                    <li><b>文档记录:</b> 记录故障处理过程和复盘结果，便于后续参考。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- AWS -->
-    <div id="aws" class="section">
-        <h2>七、AWS</h2>
-        <div class="question">
-            <h3 onclick="toggleAnswer('q15')">1. AWS VPC核心组件？ <span class="toggle-icon">▶️</span></h3>
-            <div id="q15" class="answer">子网（公有/私有）、安全组、NACL、多可用区部署。</div>
-        </div>
-        <div class="question">
-            <h3 onclick="toggleAnswer('q16')">2. AWS服务选型对比？ <span class="toggle-icon">▶️</span></h3>
-            <div id="q16" class="answer">对象存储：S3 vs Glacier；计算：EC2 vs Lambda vs EKS；数据库：RDS vs DynamoDB。</div>
-        </div>
-    </div>
+            <!-- Section 6: Open Questions -->
+             <div class="section-container">
+                <h2 class="text-xl font-bold text-gray-700 my-4 border-b-2 border-blue-500 pb-2">六、开放性问题</h2>
+                 <div class="space-y-2">
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>1. 你如何平衡系统的稳定性和快速迭代？</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <p>平衡系统的稳定性和快速迭代需要从以下几个方面入手：</p>
+                                <ul>
+                                    <li><b>自动化测试:</b> 建立完善的自动化测试体系，确保每次代码变更的质量。</li>
+                                    <li><b>灰度发布:</b> 通过灰度发布逐步验证新功能的稳定性。</li>
+                                    <li><b>回滚机制:</b> 确保部署失败时可以快速回滚到上一个稳定版本。</li>
+                                    <li><b>监控与报警:</b> 实时监控系统的性能和状态，及时发现和解决问题。</li>
+                                    <li><b>容量规划:</b> 提前规划系统资源，确保系统能够应对业务增长。</li>
+                                    <li><b>团队协作:</b> 加强开发和运维团队的协作，共同维护系统的稳定性。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>2. 你如何优化一个高流量系统的性能？</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <p>优化高流量系统性能的策略包括：</p>
+                                <ul>
+                                    <li><b>缓存:</b> 使用Redis、Memcached等缓存热点数据。</li>
+                                    <li><b>CDN:</b> 使用CDN加速静态资源的访问。</li>
+                                    <li><b>数据库优化:</b> 读写分离、分库分表、SQL优化。</li>
+                                    <li><b>异步处理:</b> 使用消息队列（如Kafka）异步处理耗时任务。</li>
+                                    <li><b>负载均衡:</b> 使用Nginx、HAProxy等分散请求压力。</li>
+                                    <li><b>代码优化:</b> 减少不必要的计算和I/O操作。</li>
+                                    <li><b>资源扩展:</b> 根据业务需求扩展计算资源。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- 国内云厂商 -->
-    <div id="chinese" class="section">
-        <h2>八、国内云厂商</h2>
-        <div class="question">
-            <h3 onclick="toggleAnswer('q17')">1. 阿里云/腾讯云/华为云服务对比？ <span class="toggle-icon">▶️</span></h3>
-            <div id="q17" class="answer">对象存储：OSS/COS/OBS；计算：ECS/CVM/ECS；容器：ACK/TKE/CCE。</div>
-        </div>
-        <div class="question">
-            <h3 onclick="toggleAnswer('q18')">2. 国内云厂商合规性要求？ <span class="toggle-icon">▶️</span></h3>
-            <div id="q18" class="answer">等保2.0、数据本地化、ICP备案。</div>
-        </div>
-    </div>
+             <!-- Section 7: Terraform -->
+            <div class="section-container">
+                <h2 class="text-xl font-bold text-gray-700 my-4 border-b-2 border-blue-500 pb-2">七、Terraform 核心问题</h2>
+                <div class="space-y-2">
+                     <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>1. Terraform 状态文件 (tfstate) 的作用与最佳实践</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <p><b>作用:</b> 记录资源元数据和状态，是Terraform实现幂等性和依赖管理的核心。</p>
+                                <p><b>最佳实践:</b></p>
+                                <ul>
+                                    <li><b>远程存储:</b> 使用云厂商的存储服务（如AWS S3）并启用版本控制。</li>
+                                    <li><b>状态锁定:</b> 通过DynamoDB等实现并发操作保护。</li>
+                                    <li><b>敏感信息:</b> 避免将敏感数据写入tfstate，使用Vault或KMS。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>2. Terraform 模块化设计原则</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <ul>
+                                    <li><b>单一职责:</b> 每个模块负责一个功能（如VPC、EKS）。</li>
+                                    <li><b>输入/输出:</b> 通过 variables.tf 和 outputs.tf 定义接口。</li>
+                                    <li><b>版本控制:</b> 使用Git标签或Terraform Registry管理版本。</li>
+                                    <li><b>国内云适配:</b> 模块需支持多厂商。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="accordion-button flex justify-between items-center w-full p-4 text-left font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none">
+                            <span>3. Terraform 多环境管理 (Dev/Prod)</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="prose max-w-none p-4 border-t border-gray-200 text-gray-600">
+                                <ul>
+                                    <li><b>Workspace:</b> 隔离环境状态（适合简单场景）。</li>
+                                    <li><b>目录结构:</b> 通过 environments/dev 和 environments/prod 分离配置。</li>
+                                    <li><b>变量文件:</b> 使用 terraform.tfvars 注入环境差异。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- More sections will be added dynamically -->
 
-    <!-- 多云场景 -->
-    <div id="multi-cloud" class="section">
-        <h2>九、多云场景</h2>
-        <div class="question">
-            <h3 onclick="toggleAnswer('q19')">1. 跨云网络互通方案？ <span class="toggle-icon">▶️</span></h3>
-            <div id="q19" class="answer">VPN、专线、SD-WAN。</div>
-        </div>
-        <div class="question">
-            <h3 onclick="toggleAnswer('q20')">2. 多云成本优化策略？ <span class="toggle-icon">▶️</span></h3>
-            <div id="q20" class="answer">预留实例、竞价实例、多云监控工具。</div>
         </div>
     </div>
 
     <script>
-        // 切换章节
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(sectionId).classList.add('active');
-        }
+        document.addEventListener('DOMContentLoaded', function () {
+            const accordionButtons = document.querySelectorAll('.accordion-button');
 
-        // 折叠/展开答案
-        function toggleAnswer(id) {
-            const answer = document.getElementById(id);
-            answer.style.display = (answer.style.display === 'block') ? 'none' : 'block';
-        }
+            accordionButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const content = button.nextElementSibling;
+                    const icon = button.querySelector('svg');
+                    
+                    // Optional: Close other accordions when one is opened
+                    // button.closest('#interactive-guide').querySelectorAll('.accordion-content').forEach(item => {
+                    //     if (item !== content && item.style.maxHeight) {
+                    //         item.style.maxHeight = null;
+                    //         item.previousElementSibling.querySelector('svg').classList.remove('rotate-180');
+                    //     }
+                    // });
+
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                        icon.classList.remove('rotate-180');
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        icon.classList.add('rotate-180');
+                    } 
+                });
+            });
+        });
     </script>
+    <script src="https://kit.fontawesome.com/662a7b1b34.js" crossorigin="anonymous"></script>
 </body>
 </html>
