@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中级Python工程师面试指南</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .prose pre {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+        .prose code {
+             background-color: #334155;
+             color: #f1f5f9;
+             padding: 0.2em 0.4em;
+             border-radius: 0.25rem;
+        }
+        .prose pre code {
+            background-color: transparent;
+            padding: 0;
+        }
+        .answer {
+            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .answer.open {
+            max-height: 1500px; /* A large enough value */
+            opacity: 1;
+        }
+        .question-arrow {
+            transition: transform 0.3s ease;
+        }
+        .question-arrow.rotated {
+            transform: rotate(90deg);
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-4">
+            <h1 class="text-3xl font-bold text-slate-900">中级Python工程师面试指南</h1>
+            <p class="text-slate-600 mt-1">一份涵盖核心技术栈的交互式问答指南</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-6 py-8 flex flex-col lg:flex-row gap-8">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="lg:w-1/4 lg:sticky lg:top-24 self-start">
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4">导航</h2>
+                <ul class="space-y-2">
+                    <li><a href="#section-1" class="text-sky-600 hover:text-sky-800 font-medium">1. Python基础知识</a></li>
+                    <li><a href="#section-2" class="text-sky-600 hover:text-sky-800 font-medium">2. Flask框架</a></li>
+                    <li><a href="#section-3" class="text-sky-600 hover:text-sky-800 font-medium">3. 消息队列</a></li>
+                    <li><a href="#section-4" class="text-sky-600 hover:text-sky-800 font-medium">4. Celery异步任务调度</a></li>
+                    <li><a href="#section-5" class="text-sky-600 hover:text-sky-800 font-medium">5. 高并发Syslog处理</a></li>
+                    <li><a href="#section-6" class="text-sky-600 hover:text-sky-800 font-medium">6. 算法模型调用</a></li>
+                    <li><a href="#section-7" class="text-sky-600 hover:text-sky-800 font-medium">7. 其他重要技能</a></li>
+                    <li><a href="#section-8" class="text-sky-600 hover:text-sky-800 font-medium">8. 面试模拟题</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Q&A Content -->
+        <main class="lg:w-3/4">
+            <div class="space-y-8">
+                
+                <!-- Section 1 -->
+                <section id="section-1" class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-bold mb-4 border-b pb-2">1. Python基础知识</h2>
+                    <h3 class="text-xl font-semibold text-slate-700 my-4">1.1 数据结构和算法</h3>
+                    <div class="space-y-4">
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q1：Python中的列表和元组有什么区别？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ul><li><strong>可变性</strong>：列表是可变的（<code>list</code>），元组是不可变的（<code>tuple</code>）。</li><li><strong>性能</strong>：元组由于不可变，创建和访问速度更快，适合存储常量数据。</li><li><strong>使用场景</strong>：列表适合动态数据（如用户输入），元组适合固定数据（如坐标、RGB值）。</li><li><strong>语法</strong>：列表用<code>[]</code>，元组用<code>()</code>（单元素元组需加逗号，如<code>(1,)</code>）。</li></ul></div></div>
+                        </div>
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                             <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q2：如何优化Python代码的时间复杂度？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ul><li><strong>数据结构选择</strong>：使用集合（<code>set</code>）或字典（<code>dict</code>）实现O(1)查找，避免列表（<code>list</code>）的O(n)查找。</li><li><strong>避免重复计算</strong>：使用缓存（<code>functools.lru_cache</code>）或预计算。</li><li><strong>算法优化</strong>：用动态规划或分治法替代暴力解法。</li><li><strong>生成器</strong>：用<code>yield</code>替代返回大列表，减少内存占用。</li></ul></div></div>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-semibold text-slate-700 mt-6 mb-4">1.2 面向对象编程</h3>
+                    <div class="space-y-4">
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q3：Python中的多态是如何实现的？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ul><li><strong>鸭子类型</strong>：只要对象实现了特定方法（如<code>__len__</code>），即可被视为某种类型。</li><li><strong>继承和方法重写</strong>：子类重写父类方法，调用时动态绑定。</li><li><strong>抽象基类（ABC）</strong>：通过<code>abc.ABC</code>和<code>@abstractmethod</code>强制子类实现方法。</li></ul></div></div>
+                        </div>
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                             <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q4：解释Python的魔术方法`__enter__`和`__exit__`的作用。</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><p>用于实现上下文管理器（<code>with</code>语句），如文件操作：</p><pre><code class="language-python">class FileManager:
+    def __enter__(self):
+        self.file = open("test.txt", "r")
+        return self.file
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.file.close()
+</code></pre></div></div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="section-2" class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-bold mb-4 border-b pb-2">2. Flask框架</h2>
+                    <h3 class="text-xl font-semibold text-slate-700 my-4">2.1 基础概念</h3>
+                    <div class="space-y-4">
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q5：Flask中的请求上下文和应用上下文有什么区别？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ul><li><strong>请求上下文</strong> (<code>request</code>, <code>session</code>): 在请求期间有效，存储HTTP请求数据。</li><li><strong>应用上下文</strong> (<code>g</code>, <code>current_app</code>): 在应用生命周期内有效，存储全局数据（如数据库连接）。</li><li><strong>关系</strong>: 请求上下文依赖应用上下文，但两者生命周期不同。</li></ul></div></div>
+                        </div>
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                             <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q6：如何设计一个RESTful API的Flask应用？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ul><li><strong>路由设计</strong>: 使用<code>Flask-RESTful</code>扩展，通过<code>Resource</code>类定义资源。</li><li><strong>请求验证</strong>: 用<code>marshmallow</code>或<code>pydantic</code>校验参数。</li><li><strong>错误处理</strong>: 自定义错误码和消息，返回JSON格式。</li></ul><pre><code class="language-python">from flask_restful import Resource, Api
+api = Api(app)
+class UserResource(Resource):
+    def get(self, user_id):
+        return {"id": user_id, "name": "Alice"}
+api.add_resource(UserResource, "/users/<int:user_id>")
+</code></pre></div></div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold text-slate-700 mt-6 mb-4">2.2 高级特性</h3>
+                    <div class="space-y-4">
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q7：Flask中如何全局捕获异常？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><p>使用<code>@app.errorhandler</code>装饰器：</p><pre><code class="language-python">@app.errorhandler(500)
+def handle_500(error):
+    return {"error": "Internal Server Error"}, 500
+</code></pre><p>结合<code>try-except</code>记录日志：</p><pre><code class="language-python">@app.errorhandler(Exception)
+def handle_unexpected_error(error):
+    app.logger.error(f"Unexpected error: {error}")
+    return {"error": "Internal Server Error"}, 500
+</code></pre></div></div>
+                        </div>
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                             <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q8：如何实现Flask的异步视图？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><p>（Flask 2.0+）使用原生<code>async/await</code>：</p><pre><code class="language-python">@app.route("/async")
+async def async_view():
+    await asyncio.sleep(1)
+    return {"status": "done"}
+</code></pre><p>需配合异步数据库驱动（如<code>asyncpg</code>）和服务器（如<code>uvicorn</code>）。</p></div></div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="section-3" class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-bold mb-4 border-b pb-2">3. 消息队列 (Kafka & RabbitMQ)</h2>
+                    <h3 class="text-xl font-semibold text-slate-700 my-4">3.1 Kafka</h3>
+                    <div class="space-y-4">
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q9：Kafka的Partition和Replica机制如何工作？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ul><li><strong>Partition</strong>：Topic分片，每个Partition是独立的有序日志，用于并行处理。</li><li><strong>Replica</strong>：Partition的副本，Leader副本处理读写，Follower副本同步数据。</li><li><strong>容错</strong>：当Leader宕机，Follower通过ISR（In-Sync Replica）选举新Leader。</li></ul></div></div>
+                        </div>
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q10：如何用Python实现Kafka的Exactly-Once语义？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><p>启用幂等性（<code>enable.idempotence=True</code>）和事务（<code>transactional.id</code>）。</p><pre><code class="language-python">producer = Producer({
+    "enable.idempotence": True,
+    "transactional.id": "unique-id"
+})
+producer.init_transactions()
+try:
+    producer.begin_transaction()
+    producer.produce("topic", "value")
+    producer.commit_transaction()
+except Exception:
+    producer.abort_transaction()
+</code></pre></div></div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold text-slate-700 mt-6 mb-4">3.2 RabbitMQ</h3>
+                    <div class="space-y-4">
+                         <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q11：RabbitMQ的Direct交换机如何路由消息？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><p>根据<strong>Routing Key</strong>精确匹配绑定到队列的Binding Key。</p>
+                            <ul><li>队列A绑定到交换机，Binding Key为<code>error</code>。</li><li>发送消息时Routing Key为<code>error</code>，消息会路由到队列A。</li></ul></div></div>
+                        </div>
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q12：RabbitMQ如何实现消息的延迟消费？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ul><li><strong>死信队列（DLX）</strong>：设置消息的TTL（<code>expiration</code>），过期后进入DLX。</li><li><strong>延迟插件</strong>：使用<code>rabbitmq_delayed_message_exchange</code>插件。</li></ul><pre><code class="language-python">channel.exchange_declare(exchange="delay_exchange", arguments={"x-delayed-type": "direct"})
+channel.basic_publish(exchange="delay_exchange", routing_key="delay", properties={"headers": {"x-delay": 5000}}, body="msg")
+</code></pre></div></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="section-4" class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-bold mb-4 border-b pb-2">4. Celery异步任务调度</h2>
+                    <h3 class="text-xl font-semibold text-slate-700 my-4">4.1 基础概念</h3>
+                    <div class="space-y-4">
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q13：Celery的任务是如何持久化的？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ul><li><strong>Broker</strong>：存储任务队列（如Redis、RabbitMQ）。</li><li><strong>Backend</strong>：存储任务结果（如Redis、Database）。</li></ul><pre><code class="language-python">app.conf.task_result_expires = 3600  # 结果过期时间
+app.conf.broker_transport_options = {"visibility_timeout": 3600}  # 消息可见性超时
+</code></pre></div></div>
+                        </div>
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q14：Celery如何实现定时任务？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><p>使用<code>beat_schedule</code>配置周期性任务：</p><pre><code class="language-python">app.conf.beat_schedule = {
+    "daily-task": {
+        "task": "tasks.daily_report",
+        "schedule": crontab(hour=0, minute=0),
+        "args": (1, 2)
+    }
+}
+</code></pre></div></div>
+                        </div>
+                    </div>
+                     <h3 class="text-xl font-semibold text-slate-700 mt-6 mb-4">4.2 性能优化</h3>
+                    <div class="space-y-4">
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q15：Celery的并发模型有哪些？如何选择？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ul><li><strong>Prefork</strong>：多进程，适合CPU密集型任务。</li><li><strong>Eventlet</strong>：协程，适合I/O密集型任务。</li></ul><pre><code class="language-bash">celery -A tasks worker --concurrency=10 --pool=eventlet
+</code></pre></div></div>
+                        </div>
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q16：如何监控Celery任务？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ul><li><strong>Flower</strong>：实时Web监控界面。</li><li><strong>Redis</strong>：通过<code>celery.result</code>键查看任务状态。</li><li><strong>日志</strong>：结合<code>structlog</code>或<code>loguru</code>记录任务执行详情。</li></ul></div></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="section-5" class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-bold mb-4 border-b pb-2">5. 高并发Syslog处理</h2>
+                    <h3 class="text-xl font-semibold text-slate-700 my-4">5.1 Syslog协议</h3>
+                    <div class="space-y-4">
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q17：Syslog协议中Facility和Severity分别代表什么？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ul><li><strong>Facility</strong>：日志来源（如<code>0</code>=kernel，<code>1</code>=user，<code>2</code>=mail）。</li><li><strong>Severity</strong>：日志级别（<code>0</code>=Emergency，<code>7</code>=Debug）。</li></ul>
+                            <p>格式示例：<code>&lt;34&gt;1 2023-09-01T12:00:00Z server app - - msg</code></p></div></div>
+                        </div>
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q18：如何用Python接收Syslog消息？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><p><strong>UDP接收</strong>：</p><pre><code class="language-python">import socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+sock.bind(("0.0.0.0", 514))
+while True:
+    data, addr = sock.recvfrom(1024)
+    print(f"Syslog: {data.decode()}")
+</code></pre><p><strong>TCP接收</strong>：需处理消息分隔符（如<code>&lt;13&gt;</code>）。</p></div></div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold text-slate-700 mt-6 mb-4">5.2 高并发处理</h3>
+                    <div class="space-y-4">
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q19：如何设计一个高并发Syslog处理系统？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ol><li><strong>接收层</strong>：UDP/TCP接收，使用多线程或<code>asyncio</code>。</li><li><strong>缓冲层</strong>：将日志发送到Kafka（高吞吐）或RabbitMQ（低延迟）。</li><li><strong>处理层</strong>：Celery异步解析日志，过滤无效消息。</li><li><strong>存储层</strong>：批量写入Elasticsearch或数据库。</li><li><strong>监控</strong>：Prometheus监控吞吐量、延迟。</li></ol></div></div>
+                        </div>
+                         <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q20：Syslog处理中如何避免消息丢失？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ul><li><strong>消息队列</strong>：Kafka的副本机制确保消息不丢失。</li><li><strong>ACK机制</strong>：RabbitMQ的<code>basic_ack</code>确认消息处理完成。</li><li><strong>本地缓存</strong>：接收端临时存储未发送的消息（如SQLite）。</li></ul></div></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="section-6" class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-bold mb-4 border-b pb-2">6. 算法模型调用</h2>
+                    <h3 class="text-xl font-semibold text-slate-700 my-4">6.1 模型部署</h3>
+                    <div class="space-y-4">
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q21：如何将一个机器学习模型封装为Flask API？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><pre><code class="language-python">@app.route("/predict", methods=["POST"])
+def predict():
+    data = request.json
+    prediction = model.predict([data["features"]])
+    return {"prediction": prediction.tolist()}
+</code></pre><ul><li>使用<code>gunicorn</code>多进程部署。</li><li>模型加载到内存（避免每次请求重新加载）。</li></ul></div></div>
+                        </div>
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q22：如何实现模型的热更新？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ul><li><strong>文件监听</strong>：用<code>watchdog</code>监控模型文件变化，重新加载。</li><li><strong>版本管理</strong>：通过Redis存储模型路径，动态切换。</li></ul></div></div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold text-slate-700 mt-6 mb-4">6.2 性能优化</h3>
+                    <div class="space-y-4">
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q23：模型调用时如何提升吞吐量？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ul><li><strong>批量推理</strong>：合并多个请求输入，减少模型调用次数。</li><li><strong>异步处理</strong>：用Celery异步执行模型推理。</li><li><strong>缓存</strong>：Redis缓存高频输入的预测结果。</li></ul></div></div>
+                        </div>
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q24：模型调用超时如何处理？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ul><li><strong>超时控制</strong>：Flask中设置<code>request_timeout</code>。</li><li><strong>降级策略</strong>：返回默认值或简化模型（如规则引擎）。</li><li><strong>监控</strong>：记录超时日志并告警。</li></ul></div></div>
+                        </div>
+                    </div>
+                </section>
+
+                 <section id="section-7" class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-bold mb-4 border-b pb-2">7. 其他重要技能</h2>
+                    <h3 class="text-xl font-semibold text-slate-700 my-4">7.1 数据库</h3>
+                    <div class="space-y-4">
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q25：Redis如何解决缓存雪崩问题？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ul><li><strong>随机过期时间</strong>：避免大量缓存同时过期。</li><li><strong>永不过期</strong>：用逻辑过期（后台线程更新）。</li><li><strong>熔断机制</strong>：缓存失效时，直接返回降级数据。</li></ul></div></div>
+                        </div>
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q26：MySQL的索引失效场景有哪些？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ul><li>对索引列使用函数（如<code>WHERE YEAR(create_time)=2023</code>）。</li><li>隐式类型转换（如<code>WHERE id='1'</code>，<code>id</code>为整数）。</li><li>组合索引未遵循最左前缀原则。</li></ul></div></div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-semibold text-slate-700 mt-6 mb-4">7.2 系统设计</h3>
+                    <div class="space-y-4">
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q27：设计一个日志分析系统，要求支持实时查询。</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ul><li><strong>接收层</strong>：Syslog → Kafka。</li><li><strong>处理层</strong>：Flink/Spark Streaming实时聚合。</li><li><strong>存储层</strong>：Elasticsearch（全文检索） + ClickHouse（分析）。</li><li><strong>查询层</strong>：Kibana/Grafana可视化。</li></ul></div></div>
+                        </div>
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q28：如何保证消息队列的顺序性？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ul><li><strong>Kafka</strong>：同一Partition内消息有序，需确保生产者按顺序写入。</li><li><strong>RabbitMQ</strong>：单队列单消费者，或启用<code>consistent-hash-exchange</code>插件。</li></ul></div></div>
+                        </div>
+                    </div>
+                </section>
+
+                 <section id="section-8" class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-2xl font-bold mb-4 border-b pb-2">8. 面试模拟题</h2>
+                     <div class="space-y-4">
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q29：你在项目中如何解决过性能瓶颈？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><p>(STAR法则):</p><ul><li><strong>Situation (情境)</strong>：高并发Syslog系统，吞吐量不足。</li><li><strong>Task (任务)</strong>：提升日志处理速度。</li><li><strong>Action (行动)</strong>：引入Kafka缓冲，Celery异步处理，批量写入数据库。</li><li><strong>Result (结果)</strong>：吞吐量从1k msg/s提升至10k msg/s。</li></ul></div></div>
+                        </div>
+                        <div class="qa-item border rounded-lg overflow-hidden bg-white">
+                            <div class="question p-4 cursor-pointer bg-slate-100 hover:bg-slate-200 flex justify-between items-center">
+                                <span class="font-semibold">Q30：如果模型调用延迟突然升高，如何排查？</span>
+                                <svg class="question-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </div>
+                            <div class="answer"><div class="p-4 border-t prose max-w-none"><ol><li><strong>网络</strong>：检查API网关或负载均衡延迟。</li><li><strong>模型</strong>：监控GPU利用率、内存占用。</li><li><strong>数据</strong>：验证输入数据大小是否异常。</li><li><strong>日志</strong>：查看模型服务日志（如OOM错误）。</li></ol></div></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-12 py-6 border-t">
+        <div class="container mx-auto px-6 text-center text-slate-500">
+            <p>&copy; 2025 Python面试指南. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const qaItems = document.querySelectorAll('.qa-item');
+
+            qaItems.forEach(item => {
+                const question = item.querySelector('.question');
+                const answer = item.querySelector('.answer');
+                const arrow = item.querySelector('.question-arrow');
+
+                question.addEventListener('click', () => {
+                    const isOpen = answer.classList.contains('open');
+                    
+                    // This version allows multiple answers to be open at once.
+                    // To close others, uncomment the block below.
+                    /*
+                    document.querySelectorAll('.answer.open').forEach(openAnswer => {
+                        if(openAnswer !== answer) {
+                            openAnswer.classList.remove('open');
+                            const openArrow = openAnswer.closest('.qa-item').querySelector('.question-arrow');
+                            if (openArrow) {
+                                openArrow.classList.remove('rotated');
+                            }
+                        }
+                    });
+                    */
+
+                    answer.classList.toggle('open');
+                    if (arrow) {
+                      arrow.classList.toggle('rotated');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
+
