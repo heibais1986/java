@@ -38,7 +38,7 @@
                 @apply px-6 py-4 bg-white border-t border-gray-100 text-secondary space-y-2;
             }
             .code-block {
-                @apply bg-gray-900 text-gray-100 p-4 rounded-md overflow-x-auto font-mono text-sm my-2;
+                @apply bg-gray-900 text-gray-100 p-4 rounded-md overflow-x-auto font-mono text-sm my-2 whitespace-pre-wrap;
             }
             .tag {
                 @apply inline-block px-2 py-1 text-xs rounded-full bg-primary/10 text-primary mr-2 mb-2;
@@ -94,17 +94,17 @@
                         <li>可变类型：内存中的值可以直接修改，对象地址保持不变</li>
                     </ul>
                     <div class="code-block">
-                        # 不可变类型示例
-                        a = 1
-                        print(id(a))  # 输出内存地址
-                        a += 1
-                        print(id(a))  # 地址变化，创建了新对象
+# 不可变类型示例
+a = 1
+print(id(a))  # 输出内存地址
+a += 1
+print(id(a))  # 地址变化，创建了新对象
 
-                        # 可变类型示例
-                        lst = [1, 2, 3]
-                        print(id(lst))  # 输出内存地址
-                        lst.append(4)
-                        print(id(lst))  # 地址不变
+# 可变类型示例
+lst = [1, 2, 3]
+print(id(lst))  # 输出内存地址
+lst.append(4)
+print(id(lst))  # 地址不变
                     </div>
                     <div class="tags">
                         <span class="tag">基础类型</span>
@@ -123,22 +123,22 @@
                     <p><strong>==：</strong>比较两个对象的值是否相等（值比较）</p>
                     <p><strong>is：</strong>比较两个对象的内存地址是否相同（身份比较），即是否是同一个对象</p>
                     <div class="code-block">
-                        a = [1, 2, 3]
-                        b = [1, 2, 3]
-                        c = a
+a = [1, 2, 3]
+b = [1, 2, 3]
+c = a
 
-                        print(a == b)  # True，值相等
-                        print(a is b)  # False，不同对象
-                        print(a is c)  # True，同一个对象
+print(a == b)  # True，值相等
+print(a is b)  # False，不同对象
+print(a is c)  # True，同一个对象
 
-                        # 小整数池特殊情况
-                        x = 10
-                        y = 10
-                        print(x is y)  # True，小整数池缓存
+# 小整数池特殊情况
+x = 10
+y = 10
+print(x is y)  # True，小整数池缓存
 
-                        x = 257
-                        y = 257
-                        print(x is y)  # False，超出小整数池范围
+x = 257
+y = 257
+print(x is y)  # False，超出小整数池范围
                     </div>
                     <div class="tags">
                         <span class="tag">运算符</span>
@@ -157,33 +157,33 @@
                     <p><strong>装饰器：</strong>一种特殊的函数，用于修改其他函数的功能，不修改原函数代码，遵循开放封闭原则</p>
                     <p><strong>实现原理：</strong>基于函数嵌套和闭包，返回值为函数对象</p>
                     <div class="code-block">
-                        # 基础装饰器示例
-                        def logger(func):
-                            def wrapper(*args, **kwargs):
-                                print(f"调用函数：{func.__name__}")
-                                result = func(*args, **kwargs)
-                                print(f"函数执行完成：{func.__name__}")
-                                return result
-                            return wrapper
+# 基础装饰器示例
+def logger(func):
+    def wrapper(*args, **kwargs):
+        print(f"调用函数：{func.__name__}")
+        result = func(*args, **kwargs)
+        print(f"函数执行完成：{func.__name__}")
+        return result
+    return wrapper
 
-                        @logger  # 等价于 add = logger(add)
-                        def add(a, b):
-                            return a + b
+@logger  # 等价于 add = logger(add)
+def add(a, b):
+    return a + b
 
-                        print(add(2, 3))  # 输出日志并返回5
+print(add(2, 3))  # 输出日志并返回5
 
-                        # 带参数的装饰器
-                        def logger_with_level(level):
-                            def decorator(func):
-                                def wrapper(*args, **kwargs):
-                                    print(f"[{level}] 调用函数：{func.__name__}")
-                                    return func(*args, **kwargs)
-                                return wrapper
-                            return decorator
+# 带参数的装饰器
+def logger_with_level(level):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            print(f"[{level}] 调用函数：{func.__name__}")
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
 
-                        @logger_with_level("INFO")
-                        def subtract(a, b):
-                            return a - b
+@logger_with_level("INFO")
+def subtract(a, b):
+    return a - b
                     </div>
                     <div class="tags">
                         <span class="tag">装饰器</span>
@@ -221,14 +221,14 @@
                         <li>元组：数据不可变的场景（如配置项、函数返回多个值、字典的key）</li>
                     </ul>
                     <div class="code-block">
-                        # 元组作为字典key
-                        dict_with_tuple_key = {('a', 'b'): 123}
-                        # dict_with_list_key = {['a', 'b']: 123}  # 报错
+# 元组作为字典key
+dict_with_tuple_key = {('a', 'b'): 123}
+# dict_with_list_key = {['a', 'b']: 123}  # 报错
 
-                        # 函数返回多个值（本质是元组）
-                        def get_user():
-                            return "张三", 25, "男"
-                        name, age, gender = get_user()  # 元组解包
+# 函数返回多个值（本质是元组）
+def get_user():
+    return "张三", 25, "男"
+name, age, gender = get_user()  # 元组解包
                     </div>
                     <div class="tags">
                         <span class="tag">列表</span>
@@ -297,14 +297,14 @@
                         <li>保证如果一个类继承多个类，这些类的MRO保持一致</li>
                     </ul>
                     <div class="code-block">
-                        class A: pass
-                        class B(A): pass
-                        class C(A): pass
-                        class D(B, C): pass
+class A: pass
+class B(A): pass
+class C(A): pass
+class D(B, C): pass
 
-                        print(D.mro())  # 输出: [D, B, C, A, object]
-                        # 或使用 __mro__ 属性
-                        print(D.__mro__)
+print(D.mro())  # 输出: [D, B, C, A, object]
+# 或使用 __mro__ 属性
+print(D.__mro__)
                     </div>
                     <div class="tags">
                         <span class="tag">继承</span>
@@ -334,30 +334,30 @@
                         <li>本质是装饰器模式的一种语言级实现</li>
                     </ul>
                     <div class="code-block">
-                        # 装饰器模式实现
-                        class Component:
-                            def operation(self):
-                                pass
+# 装饰器模式实现
+class Component:
+    def operation(self):
+        pass
 
-                        class ConcreteComponent(Component):
-                            def operation(self):
-                                return "基础功能"
+class ConcreteComponent(Component):
+    def operation(self):
+        return "基础功能"
 
-                        class Decorator(Component):
-                            def __init__(self, component):
-                                self._component = component
-                            def operation(self):
-                                return self._component.operation()
+class Decorator(Component):
+    def __init__(self, component):
+        self._component = component
+    def operation(self):
+        return self._component.operation()
 
-                        class LoggingDecorator(Decorator):
-                            def operation(self):
-                                print("记录日志")
-                                return f"{self._component.operation()} + 日志功能"
+class LoggingDecorator(Decorator):
+    def operation(self):
+        print("记录日志")
+        return f"{self._component.operation()} + 日志功能"
 
-                        # 使用
-                        component = ConcreteComponent()
-                        decorated = LoggingDecorator(component)
-                        print(decorated.operation())
+# 使用
+component = ConcreteComponent()
+decorated = LoggingDecorator(component)
+print(decorated.operation())
                     </div>
                     <div class="tags">
                         <span class="tag">设计模式</span>
@@ -395,26 +395,26 @@
                         <li>惰性求值，节省内存</li>
                     </ul>
                     <div class="code-block">
-                        # 生成器函数
-                        def fibonacci(n):
-                            a, b = 0, 1
-                            for _ in range(n):
-                                yield a
-                                a, b = b, a + b
+# 生成器函数
+def fibonacci(n):
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
 
-                        # 使用生成器
-                        fib = fibonacci(5)
-                        print(next(fib))  # 0
-                        print(next(fib))  # 1
+# 使用生成器
+fib = fibonacci(5)
+print(next(fib))  # 0
+print(next(fib))  # 1
 
-                        # 生成器表达式
-                        gen_expr = (x * x for x in range(10))
-                        print(list(gen_expr))  # [0,1,4,...,81]
+# 生成器表达式
+gen_expr = (x * x for x in range(10))
+print(list(gen_expr))  # [0,1,4,...,81]
 
-                        # 迭代器示例
-                        lst = [1,2,3]
-                        it = iter(lst)
-                        print(next(it))  # 1
+# 迭代器示例
+lst = [1,2,3]
+it = iter(lst)
+print(next(it))  # 1
                     </div>
                     <div class="tags">
                         <span class="tag">生成器</span>
@@ -446,18 +446,18 @@
                         <li>使用其他Python解释器（如Jython、IronPython无GIL）</li>
                     </ul>
                     <div class="code-block">
-                        # 多进程示例（CPU密集型）
-                        from multiprocessing import Pool
-                        import time
+# 多进程示例（CPU密集型）
+from multiprocessing import Pool
+import time
 
-                        def compute(x):
-                            return x * x
+def compute(x):
+    return x * x
 
-                        if __name__ == "__main__":
-                            start = time.time()
-                            with Pool(4) as pool:
-                                result = pool.map(compute, range(1000000))
-                            print(f"耗时: {time.time() - start:.2f}秒")
+if __name__ == "__main__":
+    start = time.time()
+    with Pool(4) as pool:
+        result = pool.map(compute, range(1000000))
+    print(f"耗时: {time.time() - start:.2f}秒")
                     </div>
                     <div class="tags">
                         <span class="tag">GIL</span>
@@ -501,26 +501,26 @@
                         <li>使用性能分析工具（cProfile、line_profiler）定位瓶颈</li>
                     </ul>
                     <div class="code-block">
-                        # 使用lru_cache缓存
-                        from functools import lru_cache
+# 使用lru_cache缓存
+from functools import lru_cache
 
-                        @lru_cache(maxsize=None)
-                        def fib(n):
-                            if n <= 1:
-                                return n
-                            return fib(n-1) + fib(n-2)
+@lru_cache(maxsize=None)
+def fib(n):
+    if n <= 1:
+        return n
+    return fib(n-1) + fib(n-2)
 
-                        # 字符串拼接优化
-                        # 低效
-                        s = ""
-                        for i in range(1000):
-                            s += str(i)
+# 字符串拼接优化
+# 低效
+s = ""
+for i in range(1000):
+    s += str(i)
 
-                        # 高效
-                        parts = []
-                        for i in range(1000):
-                            parts.append(str(i))
-                        s = "".join(parts)
+# 高效
+parts = []
+for i in range(1000):
+    parts.append(str(i))
+s = "".join(parts)
                     </div>
                     <div class="tags">
                         <span class="tag">性能优化</span>
@@ -561,22 +561,22 @@
                         <li>使用弱引用（weakref）避免强引用</li>
                     </ul>
                     <div class="code-block">
-                        # 使用tracemalloc检测内存泄漏
-                        import tracemalloc
+# 使用tracemalloc检测内存泄漏
+import tracemalloc
 
-                        tracemalloc.start()
+tracemalloc.start()
 
-                        # 执行可能泄漏的代码
-                        lst = []
-                        for i in range(100000):
-                            lst.append(" " * 1000)
+# 执行可能泄漏的代码
+lst = []
+for i in range(100000):
+    lst.append(" " * 1000)
 
-                        snapshot = tracemalloc.take_snapshot()
-                        top_stats = snapshot.statistics('lineno')
+snapshot = tracemalloc.take_snapshot()
+top_stats = snapshot.statistics('lineno')
 
-                        print("[ Top 10 ]")
-                        for stat in top_stats[:10]:
-                            print(stat)
+print("[ Top 10 ]")
+for stat in top_stats[:10]:
+    print(stat)
                     </div>
                     <div class="tags">
                         <span class="tag">内存泄漏</span>
