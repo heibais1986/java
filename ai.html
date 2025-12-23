@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Engineering/RAG/AI Agent面试常见问题及解答</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                        secondary: '#64748b',
+                        accent: '#10b981',
+                        dark: '#1e293b',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .question-card {
+                @apply bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 mb-4 overflow-hidden;
+            }
+            .question-header {
+                @apply bg-primary/5 px-6 py-4 cursor-pointer flex justify-between items-center;
+            }
+            .answer-content {
+                @apply px-6 py-4 bg-white border-t border-gray-100 text-secondary space-y-2;
+            }
+            .code-block {
+                @apply bg-gray-900 text-gray-100 p-4 rounded-md overflow-x-auto font-mono text-sm my-2 whitespace-pre-wrap;
+            }
+            .tag {
+                @apply inline-block px-2 py-1 text-xs rounded-full bg-primary/10 text-primary mr-2 mb-2;
+            }
+            .flow-chart {
+                @apply bg-gray-50 p-4 rounded-lg border border-gray-200 my-4;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- 顶部导航 -->
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-primary">
+                <i class="fa fa-robot mr-2"></i>AI面试宝典
+            </h1>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="#prompt" class="text-secondary hover:text-primary transition-colors">提示工程</a></li>
+                    <li><a href="#rag" class="text-secondary hover:text-primary transition-colors">检索增强生成</a></li>
+                    <li><a href="#agent" class="text-secondary hover:text-primary transition-colors">AI智能体</a></li>
+                    <li><a href="#practice" class="text-secondary hover:text-primary transition-colors">实战应用</a></li>
+                    <li><a href="#optimize" class="text-secondary hover:text-primary transition-colors">性能优化</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- 介绍部分 -->
+        <section class="mb-12 text-center">
+            <h2 class="text-3xl font-bold text-dark mb-4">Prompt Engineering/RAG/AI Agent面试常见问题及解答</h2>
+            <p class="text-secondary max-w-3xl mx-auto">覆盖提示工程、检索增强生成、AI智能体核心考点，助力AI相关岗位面试准备</p>
+        </section>
+
+        <!-- 提示工程部分 -->
+        <section id="prompt" class="mb-12">
+            <h3 class="text-2xl font-bold text-dark mb-6 border-b border-gray-200 pb-2">
+                <i class="fa fa-comment-o mr-2 text-primary"></i>Prompt Engineering（提示工程）
+            </h3>
+
+            <!-- 问题1 -->
+            <div class="question-card">
+                <div class="question-header" onclick="toggleAnswer(this)">
+                    <h4 class="font-semibold text-lg">1. 什么是提示工程？核心原则有哪些？</h4>
+                    <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                </div>
+                <div class="answer-content hidden">
+                    <p><strong>提示工程：</strong>设计和优化提示词（Prompt）的过程，通过精准的指令引导AI模型生成高质量、符合预期的输出结果</p>
+                    <p><strong>核心原则：</strong></p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>清晰性</strong>：指令明确、无歧义，避免模糊表述</li>
+                        <li><strong>具体性</strong>：提供详细的要求、约束和上下文</li>
+                        <li><strong>结构化</strong>：采用分步骤、分模块的提示结构</li>
+                        <li><strong>示例引导</strong>：提供少量示例（Few-shot）提升准确性</li>
+                        <li><strong>角色设定</strong>：为模型设定特定角色，匹配任务场景</li>
+                    </ul>
+                    <div class="code-block">
+# 反面示例（模糊）
+"写一篇关于人工智能的文章"
+
+# 正面示例（清晰具体）
+"""
+角色：资深AI领域技术作家
+任务：撰写一篇关于大语言模型应用的科普文章
+要求：
+1. 字数800-1000字
+2. 结构：引言+核心技术+应用场景+未来展望
+3. 语言风格：通俗易懂，避免过多专业术语
+4. 重点覆盖：LLM的实际落地案例和行业价值
+示例段落：
+【引言示例】
+人工智能的第三次浪潮以大语言模型为核心驱动力，正在重塑各行各业的生产方式...
+"""
+                    </div>
+                    <div class="tags">
+                        <span class="tag">提示工程</span>
+                        <span class="tag">核心原则</span>
+                        <span class="tag">基础概念</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题2 -->
+            <div class="question-card">
+                <div class="question-header" onclick="toggleAnswer(this)">
+                    <h4 class="font-semibold text-lg">2. 常见的提示词范式（Prompt Pattern）有哪些？</h4>
+                    <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                </div>
+                <div class="answer-content hidden">
+                    <p><strong>主流提示词范式：</strong></p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>
+                            <strong>零样本（Zero-shot）</strong>：无示例，直接下达指令
+                            <div class="code-block">
+"将以下文本翻译成英文：人工智能正在改变世界"
+                            </div>
+                        </li>
+                        <li>
+                            <strong>少样本（Few-shot）</strong>：提供少量示例引导模型
+                            <div class="code-block">
+"""
+请按照示例格式进行情感分析：
+示例1：
+文本：这家餐厅的服务太棒了！
+情感：正面
+示例2：
+文本：电影剧情很无聊，浪费时间
+情感：负面
+待分析：
+文本：新发布的手机续航超出预期
+情感：
+"""
+                            </div>
+                        </li>
+                        <li>
+                            <strong>思维链（Chain-of-Thought, CoT）</strong>：引导模型分步推理
+                            <div class="code-block">
+"""
+请解决以下数学问题，并详细说明推理步骤：
+问题：小明有10个苹果，分给3个朋友每人2个，又买了5个，现在有多少个？
+思考步骤：
+1. 先计算分出去的苹果数量：3 × 2 = 6个
+2. 计算分完后剩余的数量：10 - 6 = 4个
+3. 加上新买的数量：4 + 5 = 9个
+答案：9个
+"""
+                            </div>
+                        </li>
+                        <li>
+                            <strong>自洽性（Self-Consistency）</strong>：多次推理验证结果一致性
+                            <li><strong>提示词拆解（Prompt Chaining）</strong>：将复杂任务拆分为多个简单提示词分步执行</li>
+                        </li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">提示范式</span>
+                        <span class="tag">思维链</span>
+                        <span class="tag">少样本学习</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题3 -->
+            <div class="question-card">
+                <div class="question-header" onclick="toggleAnswer(this)">
+                    <h4 class="font-semibold text-lg">3. 如何优化提示词以提升模型输出质量？</h4>
+                    <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                </div>
+                <div class="answer-content hidden">
+                    <p><strong>优化策略：</strong></p>
+                    <ol class="list-decimal pl-5 space-y-2">
+                        <li>
+                            <strong>明确输出格式</strong>：指定JSON、Markdown等格式，便于后续处理
+                            <div class="code-block">
+"分析以下用户评论，输出JSON格式结果，包含字段：text, sentiment, keywords
+评论：这款笔记本电池续航不错，但散热效果一般
+输出示例：
+{
+  \"text\": \"这款笔记本电池续航不错，但散热效果一般\",
+  \"sentiment\": \"中性\",
+  \"keywords\": [\"电池续航\", \"散热效果\"]
+}"
+                            </div>
+                        </li>
+                        <li><strong>添加约束条件</strong>：限制输出长度、语言、风格等</li>
+                        <li><strong>使用否定式提示</strong>：明确告知模型避免哪些内容</li>
+                        <li><strong>迭代优化</strong>：基于模型输出反馈，逐步调整提示词</li>
+                        <li><strong>上下文管理</strong>：合理控制上下文长度，突出关键信息</li>
+                    </ol>
+                    <p><strong>优化工具：</strong>PromptPerfect、LangChain Prompt Templates、GPT-4 Prompt Generator</p>
+                    <div class="tags">
+                        <span class="tag">提示优化</span>
+                        <span class="tag">输出质量</span>
+                        <span class="tag">实战技巧</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RAG部分 -->
+        <section id="rag" class="mb-12">
+            <h3 class="text-2xl font-bold text-dark mb-6 border-b border-gray-200 pb-2">
+                <i class="fa fa-search mr-2 text-primary"></i>RAG（检索增强生成）
+            </h3>
+
+            <!-- 问题1 -->
+            <div class="question-card">
+                <div class="question-header" onclick="toggleAnswer(this)">
+                    <h4 class="font-semibold text-lg">1. 什么是RAG？解决了LLM的哪些问题？</h4>
+                    <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                </div>
+                <div class="answer-content hidden">
+                    <p><strong>RAG（Retrieval-Augmented Generation）</strong>：检索增强生成，将信息检索与生成式AI结合的技术，先从外部知识库检索相关信息，再结合检索结果生成回答</p>
+                    <p><strong>解决的LLM核心问题：</strong></p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>知识时效性</strong>：LLM训练数据有截止日期，RAG可接入最新数据</li>
+                        <li><strong>知识准确性</strong>：减少幻觉，回答基于真实数据源</li>
+                        <li><strong>领域适配</strong>：可接入垂直领域知识库，提升专业问题回答质量</li>
+                        <li><strong>可解释性</strong>：回答可追溯到具体的知识来源</li>
+                        <li><strong>数据隐私</strong>：无需重新训练模型，保护敏感数据</li>
+                    </ul>
+                    <div class="flow-chart">
+                        <p class="font-medium mb-2">RAG核心流程：</p>
+                        <div class="flex flex-col md:flex-row items-center justify-center space-y-2 md:space-y-0 md:space-x-4">
+                            <div class="bg-primary/10 px-4 py-2 rounded">用户提问</div>
+                            <i class="fa fa-arrow-right text-primary"></i>
+                            <div class="bg-primary/10 px-4 py-2 rounded">检索器</div>
+                            <i class="fa fa-arrow-right text-primary"></i>
+                            <div class="bg-primary/10 px-4 py-2 rounded">知识库</div>
+                            <i class="fa fa-arrow-right text-primary"></i>
+                            <div class="bg-primary/10 px-4 py-2 rounded">相关文档</div>
+                            <i class="fa fa-arrow-right text-primary"></i>
+                            <div class="bg-primary/10 px-4 py-2 rounded">LLM生成</div>
+                            <i class="fa fa-arrow-right text-primary"></i>
+                            <div class="bg-primary/10 px-4 py-2 rounded">最终回答</div>
+                        </div>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">RAG</span>
+                        <span class="tag">检索增强</span>
+                        <span class="tag">LLM幻觉</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题2 -->
+            <div class="question-card">
+                <div class="question-header" onclick="toggleAnswer(this)">
+                    <h4 class="font-semibold text-lg">2. RAG的核心组件和技术选型有哪些？</h4>
+                    <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                </div>
+                <div class="answer-content hidden">
+                    <p><strong>RAG核心组件：</strong></p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>
+                            <strong>文档加载与预处理</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>加载器：LangChain DocumentLoaders（PDF/Word/HTML/数据库）</li>
+                                <li>预处理：文本清洗、分段、格式标准化</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>文本向量化（Embedding）</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>模型选型：OpenAI Embeddings、BGE、m3e、text-embedding-ada-002</li>
+                                <li>维度选择：768/1024维（平衡效果与存储）</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>向量数据库</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>轻量型：Chroma、FAISS、Pinecone Free</li>
+                                <li>企业级：Milvus、Weaviate、PGVector、Elasticsearch</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>检索器</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>基础检索：相似度检索、关键词检索</li>
+                                <li>高级检索：Hybrid Search（混合检索）、Rerank（重排序）</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>生成器</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>闭源：GPT-4/3.5、Claude、Gemini</li>
+                                <li>开源：Llama 3、Qwen、Baichuan、ChatGLM</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="code-block">
+# LangChain实现基础RAG示例
+from langchain.document_loaders import TextLoader
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.vectorstores import Chroma
+from langchain.chat_models import ChatOpenAI
+from langchain.chains import RetrievalQA
+
+# 1. 加载文档
+loader = TextLoader("company_knowledge.txt")
+documents = loader.load()
+
+# 2. 创建向量库
+embeddings = OpenAIEmbeddings()
+vector_db = Chroma.from_documents(documents, embeddings)
+
+# 3. 创建检索器
+retriever = vector_db.as_retriever(search_kwargs={"k": 3})
+
+# 4. 创建RAG链
+qa_chain = RetrievalQA.from_chain_type(
+    llm=ChatOpenAI(model_name="gpt-3.5-turbo"),
+    chain_type="stuff",
+    retriever=retriever,
+    return_source_documents=True
+)
+
+# 5. 问答
+result = qa_chain({"query": "公司2024年的产品规划是什么？"})
+print(result["result"])
+                    </div>
+                    <div class="tags">
+                        <span class="tag">RAG组件</span>
+                        <span class="tag">向量数据库</span>
+                        <span class="tag">LangChain</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题3 -->
+            <div class="question-card">
+                <div class="question-header" onclick="toggleAnswer(this)">
+                    <h4 class="font-semibold text-lg">3. 如何提升RAG系统的检索精度和效果？</h4>
+                    <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                </div>
+                <div class="answer-content hidden">
+                    <p><strong>检索精度优化策略：</strong></p>
+                    <ol class="list-decimal pl-5 space-y-2">
+                        <li>
+                            <strong>文档分块优化</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>合理分块大小：200-500 tokens（过短丢失上下文，过长噪声多）</li>
+                                <li>语义分块：按段落、章节、主题分块，而非固定长度</li>
+                                <li>添加元数据：标题、来源、时间等辅助检索</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>混合检索（Hybrid Search）</strong>
+                            <div class="code-block">
+# 结合向量检索和关键词检索
+from langchain.retrievers import BM25Retriever, EnsembleRetriever
+
+# 向量检索器
+vector_retriever = vector_db.as_retriever()
+
+# BM25关键词检索器
+bm25_retriever = BM25Retriever.from_documents(documents)
+bm25_retriever.k = 3
+
+# 混合检索器
+ensemble_retriever = EnsembleRetriever(
+    retrievers=[vector_retriever, bm25_retriever],
+    weights=[0.7, 0.3]  # 权重分配
+)
+                            </div>
+                        </li>
+                        <li>
+                            <strong>重排序（Reranking）</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>使用CrossEncoder、BGE-reranker等模型对检索结果重排序</li>
+                                <li>过滤低相关性结果，提升Top-N准确率</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>查询优化</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>查询重写：使用LLM优化用户问题表述</li>
+                                <li>多查询生成：生成多个相关查询，扩大检索范围</li>
+                                <li>关键词提取：突出核心查询词</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>参数调优</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>调整top-k值（检索数量）：平衡召回率与精准率</li>
+                                <li>调整相似度阈值：过滤低相似度结果</li>
+                                <li>优化嵌入模型：选择领域适配的Embedding模型</li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <p><strong>效果评估指标：</strong>召回率（Recall）、精确率（Precision）、MRR（平均倒数排名）、Hit Rate@k</p>
+                    <div class="tags">
+                        <span class="tag">RAG优化</span>
+                        <span class="tag">检索精度</span>
+                        <span class="tag">混合检索</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Agent部分 -->
+        <section id="agent" class="mb-12">
+            <h3 class="text-2xl font-bold text-dark mb-6 border-b border-gray-200 pb-2">
+                <i class="fa fa-user-circle-o mr-2 text-primary"></i>AI Agent（AI智能体）
+            </h3>
+
+            <!-- 问题1 -->
+            <div class="question-card">
+                <div class="question-header" onclick="toggleAnswer(this)">
+                    <h4 class="font-semibold text-lg">1. 什么是AI Agent？核心特征和架构是什么？</h4>
+                    <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                </div>
+                <div class="answer-content hidden">
+                    <p><strong>AI Agent</strong>：具备自主决策、规划、执行能力的人工智能系统，能够感知环境、设定目标、执行任务，并根据反馈持续优化行为</p>
+                    <p><strong>核心特征：</strong></p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>自主性</strong>：无需人工干预，自主完成复杂任务</li>
+                        <li><strong>目标导向</strong>：能够理解并分解复杂目标</li>
+                        <li><strong>工具使用</strong>：调用外部工具/API完成能力外的任务</li>
+                        <li><strong>记忆能力</strong>：短期记忆（上下文）+ 长期记忆（知识库）</li>
+                        <li><strong>反思能力</strong>：评估执行结果，迭代优化方案</li>
+                        <li><strong>多模态交互</strong>：支持文本、语音、图像等多种输入输出</li>
+                    </ul>
+                    <div class="flow-chart">
+                        <p class="font-medium mb-2">AI Agent经典架构（PEAS）：</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-primary/5 p-3 rounded">
+                                <strong>感知（Perception）</strong>
+                                <p class="text-sm mt-1">接收环境信息（用户输入、工具反馈）</p>
+                            </div>
+                            <div class="bg-primary/5 p-3 rounded">
+                                <strong>执行（Execution）</strong>
+                                <p class="text-sm mt-1">调用工具/执行动作</p>
+                            </div>
+                            <div class="bg-primary/5 p-3 rounded">
+                                <strong>评估（Assessment）</strong>
+                                <p class="text-sm mt-1">判断执行结果是否达成目标</p>
+                            </div>
+                            <div class="bg-primary/5 p-3 rounded">
+                                <strong>规划（Strategy）</strong>
+                                <p class="text-sm mt-1">制定/调整任务执行计划</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">AI Agent</span>
+                        <span class="tag">智能体架构</span>
+                        <span class="tag">自主决策</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题2 -->
+            <div class="question-card">
+                <div class="question-header" onclick="toggleAnswer(this)">
+                    <h4 class="font-semibold text-lg">2. AI Agent与传统LLM应用的核心区别？典型应用场景？</h4>
+                    <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                </div>
+                <div class="answer-content hidden">
+                    <p><strong>核心区别：</strong></p>
+                    <table class="w-full border-collapse border border-gray-200 my-3">
+                        <thead>
+                            <tr class="bg-gray-50">
+                                <th class="border border-gray-200 px-4 py-2 text-left">维度</th>
+                                <th class="border border-gray-200 px-4 py-2 text-left">传统LLM应用</th>
+                                <th class="border border-gray-200 px-4 py-2 text-left">AI Agent</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-200 px-4 py-2">任务复杂度</td>
+                                <td class="border border-gray-200 px-4 py-2">单步、简单任务</td>
+                                <td class="border border-gray-200 px-4 py-2">多步、复杂任务</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-200 px-4 py-2">自主性</td>
+                                <td class="border border-gray-200 px-4 py-2">被动响应</td>
+                                <td class="border border-gray-200 px-4 py-2">主动规划执行</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-200 px-4 py-2">工具调用</td>
+                                <td class="border border-gray-200 px-4 py-2">有限/固定工具</td>
+                                <td class="border border-gray-200 px-4 py-2">动态选择工具</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-200 px-4 py-2">记忆能力</td>
+                                <td class="border border-gray-200 px-4 py-2">仅上下文记忆</td>
+                                <td class="border border-gray-200 px-4 py-2">长期记忆+上下文</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-200 px-4 py-2">错误处理</td>
+                                <td class="border border-gray-200 px-4 py-2">无自我修正</td>
+                                <td class="border border-gray-200 px-4 py-2">反思与迭代</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <p><strong>典型应用场景：</strong></p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>智能客服</strong>：自主查询知识库、工单系统，解决复杂客户问题</li>
+                        <li><strong>数据分析助手</strong>：理解分析需求→生成代码→执行分析→可视化结果</li>
+                        <li><strong>研发助手</strong>：需求分析→代码编写→测试→部署→文档生成</li>
+                        <li><strong>个人助理</strong>：日程管理、邮件处理、会议安排、信息检索</li>
+                        <li><strong>电商运营</strong>：商品分析、文案生成、广告投放、数据分析</li>
+                        <li><strong>科研助手</strong>：文献检索、实验设计、数据分析、论文写作</li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">AI Agent</span>
+                        <span class="tag">LLM对比</span>
+                        <span class="tag">应用场景</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题3 -->
+            <div class="question-card">
+                <div class="question-header" onclick="toggleAnswer(this)">
+                    <h4 class="font-semibold text-lg">3. 如何实现一个基础的AI Agent？核心代码示例？</h4>
+                    <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                </div>
+                <div class="answer-content hidden">
+                    <p><strong>基于LangChain实现基础AI Agent：</strong></p>
+                    <div class="code-block">
+from langchain.agents import initialize_agent, Tool
+from langchain.agents import AgentType
+from langchain.chat_models import ChatOpenAI
+from langchain.tools import BaseTool
+from typing import Optional, Type
+from pydantic import BaseModel, Field
+import requests
+
+# 1. 定义工具
+class WeatherInput(BaseModel):
+    city: str = Field(description="城市名称")
+
+class WeatherTool(BaseTool):
+    name = "weather"
+    description = "获取指定城市的天气信息"
+    args_schema: Type[BaseModel] = WeatherInput
+
+    def _run(self, city: str):
+        # 调用天气API
+        url = f"https://api.weatherapi.com/v1/current.json?key=YOUR_API_KEY&q={city}"
+        response = requests.get(url)
+        data = response.json()
+        return f"{city}当前温度：{data['current']['temp_c']}℃，天气：{data['current']['condition']['text']}"
+
+    def _arun(self, city: str):
+        raise NotImplementedError("暂不支持异步")
+
+# 2. 初始化LLM
+llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+
+# 3. 定义工具列表
+tools = [
+    WeatherTool(),
+    # 可添加更多工具：搜索引擎、计算器、数据库查询等
+]
+
+# 4. 初始化Agent
+agent = initialize_agent(
+    tools,
+    llm,
+    agent=AgentType.OPENAI_FUNCTIONS,
+    verbose=True,
+    handle_parsing_errors="返回到用户并说明解析错误"
+)
+
+# 5. 运行Agent
+result = agent.run("帮我查询北京的天气，并建议今天适合的户外活动")
+print(result)
+                    </div>
+                    <p><strong>关键扩展点：</strong></p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>添加记忆模块：ConversationBufferMemory、VectorStoreRetrieverMemory</li>
+                        <li>实现反思机制：Agent执行后评估结果，必要时重新规划</li>
+                        <li>扩展工具集：搜索引擎、代码执行、文件操作、API调用等</li>
+                        <li>添加任务分解：将复杂任务拆分为多个子任务</li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">AI Agent实现</span>
+                        <span class="tag">LangChain</span>
+                        <span class="tag">工具调用</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 实战应用部分 -->
+        <section id="practice" class="mb-12">
+            <h3 class="text-2xl font-bold text-dark mb-6 border-b border-gray-200 pb-2">
+                <i class="fa fa-cogs mr-2 text-primary"></i>实战应用
+            </h3>
+
+            <!-- 问题1 -->
+            <div class="question-card">
+                <div class="question-header" onclick="toggleAnswer(this)">
+                    <h4 class="font-semibold text-lg">1. 如何将RAG与AI Agent结合构建智能应用？</h4>
+                    <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                </div>
+                <div class="answer-content hidden">
+                    <p><strong>RAG+Agent融合架构：</strong>Agent负责任务规划和决策，RAG作为知识检索工具为Agent提供外部知识支持</p>
+                    <div class="flow-chart">
+                        <p class="font-medium mb-2">RAG+Agent工作流程：</p>
+                        <div class="flex flex-col items-center space-y-3">
+                            <div class="bg-primary/10 px-4 py-2 rounded w-full md:w-3/4 text-center">用户提出复杂问题："分析公司2024年Q1的销售数据，并对比行业平均水平"</div>
+                            <i class="fa fa-arrow-down text-primary"></i>
+                            <div class="bg-primary/10 px-4 py-2 rounded w-full md:w-3/4 text-center">Agent任务分解：
+                                1. 检索公司Q1销售数据（调用RAG工具）
+                                2. 检索行业平均数据（调用搜索引擎工具）
+                                3. 数据分析对比（调用代码执行工具）
+                                4. 生成分析报告（LLM生成）
+                            </div>
+                            <i class="fa fa-arrow-down text-primary"></i>
+                            <div class="bg-primary/10 px-4 py-2 rounded w-full md:w-3/4 text-center">Agent依次调用工具完成子任务</div>
+                            <i class="fa fa-arrow-down text-primary"></i>
+                            <div class="bg-primary/10 px-4 py-2 rounded w-full md:w-3/4 text-center">整合结果，生成最终回答</div>
+                        </div>
+                    </div>
+                    <div class="code-block">
+# RAG作为Agent的工具示例
+from langchain.agents import Tool
+from langchain.chains import RetrievalQA
+
+# 创建RAG链
+rag_chain = RetrievalQA.from_chain_type(
+    llm=ChatOpenAI(model_name="gpt-3.5-turbo"),
+    chain_type="stuff",
+    retriever=vector_db.as_retriever()
+)
+
+# 将RAG包装为Agent工具
+tools = [
+    Tool(
+        name="CompanyKnowledgeBase",
+        func=rag_chain.run,
+        description="用于查询公司内部知识、文档、数据的工具，输入问题即可获取相关信息"
+    ),
+    WeatherTool(),  # 其他工具
+    # 可添加更多工具
+]
+
+# 初始化融合RAG的Agent
+agent = initialize_agent(
+    tools,
+    llm,
+    agent=AgentType.CHAT_ZERO_SHOT_REACT_DESCRIPTION,
+    verbose=True
+)
+
+# 运行
+result = agent.run("公司2024年Q1的销售额是多少？与去年同期相比增长了多少？")
+                    </div>
+                    <div class="tags">
+                        <span class="tag">RAG+Agent</span>
+                        <span class="tag">融合架构</span>
+                        <span class="tag">智能应用</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题2 -->
+            <div class="question-card">
+                <div class="question-header" onclick="toggleAnswer(this)">
+                    <h4 class="font-semibold text-lg">2. AI应用落地过程中的挑战和解决方案？</h4>
+                    <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                </div>
+                <div class="answer-content hidden">
+                    <p><strong>核心挑战及解决方案：</strong></p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>
+                            <strong>挑战1：数据安全与隐私</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>解决方案：私有化部署模型、数据脱敏、本地Embedding、联邦学习</li>
+                                <li>技术选型：开源模型（Llama 3、Qwen）、本地向量数据库（Chroma、FAISS）</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>挑战2：成本控制</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>解决方案：模型量化（4/8bit）、缓存机制、按需调用、分级响应</li>
+                                <li>优化策略：简单问题用轻量模型，复杂问题用大模型；缓存高频问题答案</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>挑战3：效果稳定性</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>解决方案：提示词模板化、输出格式校验、人工反馈优化（RLHF）</li>
+                                <li>监控策略：实时监控响应质量，建立效果评估指标体系</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>挑战4：系统性能</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>解决方案：向量库索引优化、请求异步处理、负载均衡、结果缓存</li>
+                                <li>技术优化：批量处理、预加载热门数据、CDN加速</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>挑战5：用户体验</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>解决方案：多轮对话记忆、个性化配置、错误友好提示、渐进式结果返回</li>
+                                <li>交互优化：流式输出、加载状态提示、结果可编辑</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><strong>落地方法论：</strong></p>
+                    <ol class="list-decimal pl-5 space-y-1">
+                        <li>小场景试点：选择高价值、低复杂度场景先行落地</li>
+                        <li>快速迭代：MVP→用户反馈→优化→迭代</li>
+                        <li>效果评估：建立量化评估指标，持续监控优化</li>
+                        <li>成本优化：根据实际使用情况动态调整资源配置</li>
+                    </ol>
+                    <div class="tags">
+                        <span class="tag">落地挑战</span>
+                        <span class="tag">解决方案</span>
+                        <span class="tag">成本控制</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 性能优化部分 -->
+        <section id="optimize" class="mb-12">
+            <h3 class="text-2xl font-bold text-dark mb-6 border-b border-gray-200 pb-2">
+                <i class="fa fa-tachometer mr-2 text-primary"></i>性能优化
+            </h3>
+
+            <!-- 问题1 -->
+            <div class="question-card">
+                <div class="question-header" onclick="toggleAnswer(this)">
+                    <h4 class="font-semibold text-lg">1. 如何优化RAG/Agent系统的响应速度和成本？</h4>
+                    <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                </div>
+                <div class="answer-content hidden">
+                    <p><strong>响应速度优化：</strong></p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>
+                            <strong>向量库优化</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>建立索引：FAISS使用IVF_FLAT/IVF_PQ索引，Milvus使用HNSW索引</li>
+                                <li>量化存储：将Embedding向量量化为8bit/4bit，减少内存占用</li>
+                                <li>分片存储：大规模数据按主题/时间分片，减少检索范围</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>缓存策略</strong>
+                            <div class="code-block">
+# 实现查询结果缓存
+import redis
+from functools import lru_cache
+
+# 1. 本地缓存（适合单机）
+@lru_cache(maxsize=1000)
+def cached_rag_query(query):
+    return rag_chain.run(query)
+
+# 2. Redis缓存（适合分布式）
+redis_client = redis.Redis(host='localhost', port=6379, db=0)
+
+def redis_cached_rag_query(query):
+    cache_key = f"rag:{hash(query)}"
+    # 尝试从缓存获取
+    cached_result = redis_client.get(cache_key)
+    if cached_result:
+        return cached_result.decode('utf-8')
+    # 缓存未命中，执行查询
+    result = rag_chain.run(query)
+    # 设置缓存，过期时间1小时
+    redis_client.setex(cache_key, 3600, result)
+    return result
+                            </div>
+                        </li>
+                        <li>
+                            <strong>模型优化</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>模型量化：使用GPTQ/AWQ量化后的模型，提升推理速度</li>
+                                <li>模型选择：简单任务用轻量模型（gpt-3.5-turbo、Llama 3 8B）</li>
+                                <li>流式输出：逐步返回结果，提升用户感知速度</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <p><strong>成本优化：</strong></p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>Token优化</strong>：精简提示词、截断超长上下文、使用压缩算法</li>
+                        <li><strong>调用策略</strong>：批量处理请求、避免重复调用、失败重试限制</li>
+                        <li><strong>模型选型</strong>：非核心场景使用开源免费模型，核心场景使用闭源模型</li>
+                        <li><strong>资源调度</strong>：按需扩缩容，低峰期释放资源</li>
+                    </ul>
+                    <div class="tags">
+                        <span class="tag">性能优化</span>
+                        <span class="tag">缓存策略</span>
+                        <span class="tag">成本控制</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题2 -->
+            <div class="question-card">
+                <div class="question-header" onclick="toggleAnswer(this)">
+                    <h4 class="font-semibold text-lg">2. 如何评估和监控AI系统的效果？关键指标有哪些？</h4>
+                    <i class="fa fa-chevron-down text-primary transition-transform duration-300"></i>
+                </div>
+                <div class="answer-content hidden">
+                    <p><strong>核心评估维度：</strong></p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>
+                            <strong>效果指标（质量）</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>准确性（Accuracy）：回答与标准答案的匹配度</li>
+                                <li>相关性（Relevance）：回答与问题的相关程度</li>
+                                <li>完整性（Completeness）：回答是否覆盖所有关键点</li>
+                                <li>有用性（Usefulness）：用户是否能通过回答解决问题</li>
+                                <li>幻觉率（Hallucination Rate）：虚构信息的比例</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>性能指标（效率）</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>响应时间（Latency）：平均/95分位/99分位响应耗时</li>
+                                <li>吞吐量（Throughput）：单位时间处理请求数</li>
+                                <li>成功率（Success Rate）：成功返回结果的请求比例</li>
+                                <li>资源利用率：CPU/GPU/内存使用率</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>成本指标</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>Token消耗：每千次请求的平均Token使用量</li>
+                                <li>API调用成本：按请求/Token计费的总成本</li>
+                                <li>基础设施成本：服务器/云资源成本</li>
+                                <li>ROI：投入产出比</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>用户体验指标</strong>
+                            <ul class="list-circle pl-5 mt-1">
+                                <li>用户满意度（CSAT）：用户评分</li>
+                                <li>任务完成率：用户是否通过AI完成目标</li>
+                                <li>交互轮次：完成任务所需的平均交互次数</li>
+                                <li>纠错率：用户纠正AI的频率</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <p><strong>监控实现方案：</strong></p>
+                    <div class="code-block">
+# 简单的效果监控示例
+import time
+import logging
+from datetime import datetime
+
+# 配置日志
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler("ai_system_metrics.log"),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger("ai_monitor")
+
+def monitor_ai_response(query, response, user_rating=None):
+    """监控AI响应指标"""
+    metrics = {
+        "timestamp": datetime.now().isoformat(),
+        "query": query[:100],  # 截断长查询
+        "response_length": len(response),
+        "response_time": time.time() - start_time,
+        "user_rating": user_rating,
+        "hallucination_detected": False,  # 可通过规则/模型检测幻觉
+        "token_usage": 0  # 从API响应中获取
+    }
+    
+    # 记录指标
+    logger.info(f"AI响应指标: {metrics}")
+    
+    # 可将指标写入Prometheus/InfluxDB等监控系统
+    # push_to_prometheus(metrics)
+    
+    return metrics
+
+# 使用示例
+start_time = time.time()
+result = qa_chain({"query": user_query})
+monitor_ai_response(user_query, result["result"])
+                    </div>
+                    <p><strong>持续优化策略：</strong>建立A/B测试机制，定期评估不同模型/参数/提示词的效果，基于数据持续迭代优化</p>
+                    <div class="tags">
+                        <span class="tag">效果评估</span>
+                        <span class="tag">监控指标</span>
+                        <span class="tag">持续优化</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-2">AI面试宝典 © 2025</p>
+            <p class="text-gray-400 text-sm">覆盖Prompt Engineering/RAG/AI Agent核心面试考点，持续更新中</p>
+        </div>
+    </footer>
+
+    <script>
+        // 切换答案显示/隐藏
+        function toggleAnswer(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('i');
+            
+            answer.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // 页面加载时展开第一个问题
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstQuestion = document.querySelector('.question-header');
+            if (firstQuestion) {
+                toggleAnswer(firstQuestion);
+            }
+
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
